@@ -2,7 +2,7 @@
   <div class="hello">
 		<p>{{ msg }}</p>
     <a-button type="primary">
-			Primary
+			button
 		</a-button>
   </div>
 </template>
