@@ -26,16 +26,17 @@ export default defineComponent({
 	setup (props, context) {
 		const store = useStore()
 		console.log('props ', props, 'context ', context)
-		console.log(store.state.user.name, 'store')
+		// console.log(store.state.user.name, 'store')
 		// const current = getCurrentInstance() // 获取当前组件实例
    	// console.log(current.ctx.$router.currentRoute.value)
    	// console.log(current)
 		const name = computed( () => {
 			console.log(store, 'store')
-			return store.state.user.name
+			// return store.state.user.name
+			return 'cora'
 		})
 		const changeName = (name: string) => {
-			store.commit('getUserInfo', name)
+			store.dispatch('GetUserInfo')
 		} 
 		return {
 			name,
@@ -44,32 +45,6 @@ export default defineComponent({
 	}
 })
 
-// @Options({
-//   props: {
-//     msg: String
-//   }
-// })
-// export default class HelloWorld extends Vue {
-// 	msg!: string
-// 	setup () {
-// 		const store = useStore()
-// 		console.log(store, 'store')
-// 		// const current = getCurrentInstance() // 获取当前组件实例
-//    	// console.log(current.ctx.$router.currentRoute.value)
-//    	// console.log(current)
-// 		const name = computed( () => {
-// 			console.log(store, 'store')
-// 			return store.state.user.name
-// 		})
-// 		const changeName = (name: string) => {
-// 			store.commit('user/getUserInfo', name)
-// 		} 
-// 		return { name, changeName }
-// 	}
-// 	created() {
-// 		// console.log('store', this.$store)
-// 	}
-// }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
