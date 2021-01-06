@@ -14,11 +14,25 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 
-@Options({
-  props: {
-  }
-})
-export default class BasicLayout extends Vue {
+// @Options({
+//   props: {
+//   }
+// })
+// export default class BasicLayout extends Vue {
+// }
+export default {
+  name: 'BasicLayout',
+  components: {
+	},
+	beforeEnter: (to: any, from: any, next: any) => {
+		// ...
+		console.log('beforeEnter')
+	},
+  setup () {
+	},
+	created() {
+		console.log('in BasicLayout')
+	}
 }
 </script>
 

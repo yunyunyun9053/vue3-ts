@@ -1,4 +1,5 @@
 <template>
+	<div>5555</div>
   <router-view/>
 </template>
 

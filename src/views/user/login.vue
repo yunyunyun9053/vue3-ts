@@ -46,7 +46,7 @@ export default defineComponent({
       store.dispatch('Login', loginForm).then(() => {
         // console.log('save Login')
         (current as any).ctx.$router.push({
-          path: '/'
+          path: '/home'
         })
       })
     }

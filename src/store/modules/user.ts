@@ -3,6 +3,8 @@ import { State } from '@/store'
 import { login, getUserInfo } from '@/api/user'
 import { User } from '@/utils/user'
 
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+
 export interface UserState {
   token: string;
   name: string;
@@ -31,10 +33,10 @@ const user: Module<UserState, State> = {
 				console.log('state: ', this.state.test)
 				getUserInfo().then((res: any) => {
 					const { roles, name, token } = res
-					context.commit("SET_TOKEN", token)
+					// context.commit("SET_TOKEN", token)
 					context.commit("SET_NAME", name)
 					context.commit("SET_ROLES", roles)
-					resolve()
+					resolve(res)
 				})
 			})
 		},
@@ -44,8 +46,9 @@ const user: Module<UserState, State> = {
 					console.log(res)
 					const { roles, name, token } = res
 					context.commit("SET_TOKEN", token)
+					localStorage.setItem(ACCESS_TOKEN, token)
 					context.commit("SET_NAME", name)
-					context.commit("SET_ROLES", roles)
+					// context.commit("SET_ROLES", roles)
 					resolve()
 				})
 			})
@@ -55,6 +58,7 @@ const user: Module<UserState, State> = {
 				context.commit("SET_TOKEN", '')
 				context.commit("SET_NAME", '')
 				context.commit("SET_ROLES", [])
+				localStorage.removeItem(ACCESS_TOKEN)
 				resolve()
 			})
 		}
