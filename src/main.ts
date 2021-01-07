@@ -4,11 +4,14 @@ import './registerServiceWorker'
 import router from './router'
 import store, { key } from './store'
 import "@/peimission"
+import "@/layouts/global.less"
 
 import { 
 	Button,
 	Form,
-	Input
+	Input,
+	Menu,
+	Layout
  } from 'ant-design-vue'
 
 createApp(App)
@@ -17,4 +20,6 @@ createApp(App)
 .use(Button)
 .use(Form)
 .use(Input)
+.use(Menu)
+.use(Layout)
 .mount('#app')
