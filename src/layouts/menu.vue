@@ -8,15 +8,19 @@
       :inline-collapsed="collapsed"
     >
       <template v-for="item in menus" :key="item.path">
-        <template v-if="!item.children">
+        <template v-if="!item.children || item.children.length === 0">
           <a-menu-item :key="item.path">
             <!-- <PieChartOutlined /> -->
-						<router-link :to="item.path">{{ item.meta.title }}</router-link>
+						<router-link :to="item.path">
+							<!-- <PieChartOutlined /> -->
+							<routeicon :component="'PieChartOutlined'" />
+							{{ item.meta.title }}
+						</router-link>
             <!-- <span>{{ item.meta.title }}</span> -->
           </a-menu-item>
         </template>
         <template v-else>
-          <sub-menu :menu-info="item" :key="item.path" />
+          <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" />
         </template>
       </template>
     </a-menu>
@@ -35,15 +39,16 @@ import {
   AppstoreOutlined,
 } from '@ant-design/icons-vue'
 
-import { getCurrentInstance, computed, defineComponent } from "vue"
-
+import { getCurrentInstance, computed, defineComponent, unref } from "vue"
 // import { Menu } from 'ant-design-vue'
 import SubMenu from './sub-menu.vue'
+import routeicon from './routeicon'
 
 export default  defineComponent({
   name: 'Menu',
   components: {
 		'sub-menu': SubMenu,
+		routeicon,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PieChartOutlined,
@@ -65,7 +70,7 @@ export default  defineComponent({
 		},
 		mode: {
       type: String,
-      default: ''
+      default: 'inline'
 		}
   },
 	beforeEnter: (to: any, from: any, next: any) => {
@@ -78,7 +83,14 @@ export default  defineComponent({
 			openKeys: [] as string[],
       cachedOpenKeys: [] as string[]
     }
-  },
+	},
+	computed: {
+		rootSubmenuKeys (): Array<string>{
+			const keys: Array<string> = []
+			this.menus.forEach((item: any) => keys.push(item.path))
+			return keys
+		}
+	},
   setup () {
 	},
   watch: {
@@ -114,9 +126,37 @@ export default  defineComponent({
         routes.forEach(item => {
           openKeys.push(item.path)
         })
+			}
+			console.log('this.openKeys ', this.collapsed, this.openKeys, this.cachedOpenKeys)
+			this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
+			console.log('this.openKeys ', this.openKeys, this.cachedOpenKeys)
+		},
+    onOpenChange (openKeys: Array<string>) {
+      // 在水平模式下时执行，并且不再执行后续
+      if (this.mode === 'horizontal') {
+        this.openKeys = openKeys
+        return
+			}
+			const rootSubKeys = unref(this.rootSubmenuKeys)
+      // 非水平模式时
+      const latestOpenKey = openKeys.find(key => !openKeys.includes(key))
+      if (!(rootSubKeys.includes(latestOpenKey as string))) {
+        openKeys = openKeys
+      } else {
+        openKeys = latestOpenKey ? [latestOpenKey] : []
       }
-      this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
-    }
+    },
+		titleClick (e: any) {
+			console.log('titleClick ', e, this.openKeys)
+			const { key } = e
+			if (this.openKeys.includes(key)) {
+				const index = this.openKeys.findIndex(item => item === key)
+				this.openKeys.splice(index, 1)
+			} else {
+				this.openKeys.push(e.key)
+			}
+			console.log('titleClick push', e, this.openKeys)
+		}
   }
 })
 </script>

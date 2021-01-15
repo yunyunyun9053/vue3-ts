@@ -3,7 +3,7 @@
 		<a-layout id="components-layout-demo-custom-trigger">
 			<a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible width="256px">
 				<div class="logo" />
-				<Menu :collapsed="collapsed" :menus="menus"></Menu>
+				<Menu :collapsed="collapsed" :menus="menus" :mode="mode"></Menu>
 			</a-layout-sider>
 			<a-layout>
 				<a-layout-header style="background: #fff; padding: 0">
@@ -39,10 +39,11 @@ import {
 } from '@ant-design/icons-vue'
 import { useStore } from '@/store'
 import { convertRoutes } from '@/utils/routeConvert'
-import { getCurrentInstance, computed, defineComponent } from "vue"
+import { getCurrentInstance, computed, defineComponent, markRaw } from "vue"
 import { RouteRecordRaw } from 'vue-router'
 
 import Menu from './menu.vue'
+// import Menu from './menu'
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -57,7 +58,8 @@ export default defineComponent({
 	data() {
 		return {
 			selectedKeys: ['1'],
-      collapsed: false,
+			collapsed: false,
+			mode: 'inline'
 		}
 	},
 	beforeEnter: (to: any, from: any, next: any) => {
@@ -67,11 +69,13 @@ export default defineComponent({
   setup () {
 		const store = useStore()
 		console.log(store.getters.addRouters, 'addRouters')
-		const menus = computed( () => {
-			const routes = convertRoutes(store.getters.addRouters.find((item: RouteRecordRaw) => item.path === '/'))
-			console.log('store', store.getters.addRouters, 'routes: ', routes)
-			return (routes && routes.children) || []
-		})
+		// const menus = computed( () => {
+		// 	const routes = convertRoutes(store.getters.addRouters.find((item: RouteRecordRaw) => item.path === '/'))
+		// 	console.log('store', store.getters.addRouters, 'routes: ', routes)
+		// 	return (routes && routes.children) || []
+		// })
+		const routes = convertRoutes(store.getters.addRouters.find((item: RouteRecordRaw) => item.path === '/'))
+		const menus = markRaw((routes && routes.children) || [])
 		console.log('menus ', menus)
 		return {
 			menus

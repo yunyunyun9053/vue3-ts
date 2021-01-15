@@ -1,5 +1,5 @@
 <template>
-	<a-sub-menu :key="menuInfo.path" v-bind="$attrs">
+	<a-sub-menu :key="menuInfo.path" v-bind="$attrs" @titleClick="$emit('titleClick', $event)">
 		<template #title>
 			<span>
 				<!-- <MailOutlined /> -->
@@ -23,12 +23,13 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+import { getCurrentInstance, computed, defineComponent } from "vue"
 import {
   PieChartOutlined,
   MailOutlined,
 } from '@ant-design/icons-vue'
 
-export default {
+export default defineComponent({
   name: 'SubMenu',
   components: {
     PieChartOutlined,
@@ -48,8 +49,11 @@ export default {
 	created() {
 	},
 	methods: {
+		titleClick (e: any) {
+			console.log('titleClick', e)
+		}
   }
-}
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
