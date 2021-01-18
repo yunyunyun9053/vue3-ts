@@ -8,7 +8,7 @@
 			</span>
 		</template>
 		<template v-for="item in menuInfo.children" :key="item.path">
-			<template v-if="item.children && item.children.length > 0 && !item.hideChildrenInMenu">
+			<template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
 				<sub-menu :menu-info="item" :key="item.path" />
 			</template>
 			<template v-else>

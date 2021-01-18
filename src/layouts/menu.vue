@@ -8,7 +8,7 @@
       :inline-collapsed="collapsed"
     >
       <template v-for="item in menus" :key="item.path">
-        <template v-if="item.children && item.children.length > 0 && !item.hideChildrenInMenu">
+        <template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
           <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" />
         </template>
         <template v-else>
@@ -110,22 +110,25 @@ export default  defineComponent({
 	},
 	methods: {
     updateMenu () {
-      const routes = this.$route.matched.concat()
-
-      if (routes.length >= 4 && this.$route.meta.hidden) {
-        routes.pop()
-        this.selectedKeys = [routes[2].path]
+			const routes = this.$route.matched.concat()
+      const { hidden, activeMenu } = this.$route.meta
+      if (activeMenu) {
+        this.selectedKeys = [activeMenu]
       } else {
-        this.selectedKeys = [routes.pop()?.path as string]
+        if (routes.length >= 3 && hidden) {
+          routes.pop()
+          this.selectedKeys = [routes[routes.length - 1].path]
+        } else {
+          this.selectedKeys = [routes.pop()?.path as string]
+        }
       }
-
       const openKeys: string[] = []
       if (this.mode === 'inline') {
         routes.forEach(item => {
           openKeys.push(item.path)
         })
-			}
-			console.log('this.openKeys kkk ', this.collapsed, this.openKeys, this.cachedOpenKeys)
+      }
+
 			this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
 			console.log('this.openKeys ', this.openKeys, this.cachedOpenKeys)
 		},
