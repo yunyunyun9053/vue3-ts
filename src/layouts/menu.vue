@@ -1,5 +1,5 @@
 <template>
-	<div class="menu">
+	<!-- <div class="menu"> -->
     <a-menu
       :openKeys="openKeys"
       :selectedKeys="selectedKeys"
@@ -8,23 +8,21 @@
       :inline-collapsed="collapsed"
     >
       <template v-for="item in menus" :key="item.path">
-        <template v-if="!item.children || item.children.length === 0">
-          <a-menu-item :key="item.path">
-            <!-- <PieChartOutlined /> -->
-						<router-link :to="item.path">
-							<!-- <PieChartOutlined /> -->
-							<routeicon :component="'PieChartOutlined'" />
-							{{ item.meta.title }}
-						</router-link>
-            <!-- <span>{{ item.meta.title }}</span> -->
-          </a-menu-item>
+        <template v-if="item.children && item.children.length > 0 && !item.hideChildrenInMenu">
+          <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" />
         </template>
         <template v-else>
-          <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" />
+          <a-menu-item :key="item.path">
+						<router-link :to="item.path">
+							<CustomIcon :component="item.meta.icon" />
+							<!-- <AppstoreOutlined /> -->
+							<span>{{ item.meta.title }}</span>
+						</router-link>
+          </a-menu-item>
         </template>
       </template>
     </a-menu>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script lang="ts">
@@ -42,20 +40,20 @@ import {
 import { getCurrentInstance, computed, defineComponent, unref } from "vue"
 // import { Menu } from 'ant-design-vue'
 import SubMenu from './sub-menu.vue'
-import routeicon from './routeicon'
+import CustomIcon from './custom-icon'
 
 export default  defineComponent({
   name: 'Menu',
   components: {
 		'sub-menu': SubMenu,
-		routeicon,
+		CustomIcon,
     MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
-    MailOutlined,
-    DesktopOutlined,
-    InboxOutlined,
-    AppstoreOutlined,
+		MenuUnfoldOutlined,
+		PieChartOutlined,
+		MailOutlined,
+		DesktopOutlined,
+		InboxOutlined,
+		AppstoreOutlined,
 	},
   props: {
     collapsed: {
@@ -127,7 +125,7 @@ export default  defineComponent({
           openKeys.push(item.path)
         })
 			}
-			console.log('this.openKeys ', this.collapsed, this.openKeys, this.cachedOpenKeys)
+			console.log('this.openKeys kkk ', this.collapsed, this.openKeys, this.cachedOpenKeys)
 			this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
 			console.log('this.openKeys ', this.openKeys, this.cachedOpenKeys)
 		},

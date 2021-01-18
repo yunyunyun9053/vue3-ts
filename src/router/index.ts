@@ -20,7 +20,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: 'home',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-        meta: { title: '首页', }
+        meta: { title: '首页', icon: 'PieChartOutlined' }
       },
       {
         path: 'about',
@@ -29,7 +29,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
-				meta: { title: 'About', permission: [1] },
+				meta: { title: 'About', icon: 'AppstoreOutlined' , permission: [1] },
+				redirect: '/about/about1',
 				children: [
 					{
 						path: 'about1',

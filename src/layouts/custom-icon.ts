@@ -6,7 +6,7 @@ import {
   HeartTwoTone,
 } from '@ant-design/icons-vue';
 export default  defineComponent({
-  name: 'routeicon',
+  name: 'CustomIcon',
   props: {
 		component: {
       type: String,
@@ -21,12 +21,9 @@ export default  defineComponent({
 	},
 	render() {
 		const iconComponent = require('@ant-design/icons-vue')[this.component]
-		// return h('span', {}, 'test ')
-		// return h(this.component, {}, '')
-		// return h(iconComponent, {}, '')
-		const tag = this.component
-		return h(HeartTwoTone, {
-			twoToneColor: 'rgb(0,0,0)'
-		}, 'test ')
+		// return h(HeartTwoTone, {
+		// 	twoToneColor: 'rgb(0,0,0)'
+		// }, 'test ')
+		return h(iconComponent)
   },
 })

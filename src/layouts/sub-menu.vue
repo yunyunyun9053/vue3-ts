@@ -2,20 +2,21 @@
 	<a-sub-menu :key="menuInfo.path" v-bind="$attrs" @titleClick="$emit('titleClick', $event)">
 		<template #title>
 			<span>
-				<!-- <MailOutlined /> -->
+				<CustomIcon v-if="menuInfo.meta && menuInfo.meta.icon" :component="menuInfo.meta.icon" />
+				<!-- <PieChartOutlined /> -->
 				<span>{{ menuInfo.meta.title }}</span>
 			</span>
 		</template>
 		<template v-for="item in menuInfo.children" :key="item.path">
-			<template v-if="!item.children">
-				<a-menu-item :key="item.path">
-					<!-- <PieChartOutlined /> -->
-					<!-- <span>{{ item.meta.title }}</span> -->
-					<router-link :to="item.path">{{ item.meta.title }}</router-link>
-				</a-menu-item>
+			<template v-if="item.children && item.children.length > 0 && !item.hideChildrenInMenu">
+				<sub-menu :menu-info="item" :key="item.path" />
 			</template>
 			<template v-else>
-				<sub-menu :menu-info="item" :key="item.path" />
+				<a-menu-item :key="item.path">
+					<CustomIcon v-if="item.meta && item.meta.icon" :component="item.meta.icon" />
+					<!-- <PieChartOutlined /> -->
+					<router-link :to="item.path">{{ item.meta.title }}</router-link>
+				</a-menu-item>
 			</template>
 		</template>
 	</a-sub-menu>
@@ -28,12 +29,14 @@ import {
   PieChartOutlined,
   MailOutlined,
 } from '@ant-design/icons-vue'
+import CustomIcon from './custom-icon'
 
 export default defineComponent({
   name: 'SubMenu',
   components: {
     PieChartOutlined,
-    MailOutlined,
+		MailOutlined,
+		CustomIcon
 	},
   props: {
     menuInfo: {

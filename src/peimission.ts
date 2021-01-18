@@ -35,14 +35,14 @@ router.beforeEach(async (to, from, next: any) => {
 								router.addRoute(route)
 							})
 							// 请求带有 redirect 重定向时，登录自动重定向到该地址
-							const redirect = decodeURIComponent(from.query.redirect as string || to.path)
-							if (to.path === redirect) {
+							// const redirect = decodeURIComponent(from.query.redirect as string || to.path)
+							// if (to.path === redirect) {
 								// hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-								next({ ...to, replace: true })
-							} else {
+								// next({ ...to, replace: true })
+							// } else {
 								// 跳转到目的路由
-								next({ path: redirect })
-							}
+								// next({ path: redirect })
+							// }
             })
           })
           .catch((error) => {
@@ -50,7 +50,16 @@ router.beforeEach(async (to, from, next: any) => {
               next({ path: '/login', query: { redirect: to.fullPath } })
             })
 					})
-				next({ ...to })
+				const redirect = decodeURIComponent(from.query.redirect as string || to.path)
+				if (to.path === redirect) {
+					// hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+					next({ ...to, replace: true })
+					// to['replace'] = true
+				} else {
+					// 跳转到目的路由
+					next({ path: redirect })
+				}
+				// next({ ...to })
       } else {
         next()
       }
@@ -64,7 +73,6 @@ router.beforeEach(async (to, from, next: any) => {
       NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
     }
 	}
-	next()
 	NProgress.done()
 })
 

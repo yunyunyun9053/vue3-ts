@@ -102,6 +102,7 @@ export default  defineComponent({
       context.emit('select', { item, key, selectedKeys })
     }
 		const renderIcon = (icon: string) => {
+			console.log('in icon')
 			const iconComponent = require('@ant-design/icons-vue')[icon]
 			// return h('span', {}, 'test ')
 			// return h(this.component, {}, '')
@@ -122,9 +123,7 @@ export default  defineComponent({
 				})
 			}
 			return h(Menu.SubMenu,
-				{ key: menu.path, on: { titleClick: (e: any) => {
-					context.emit('titleClick', e)
-				} } },
+				{ key: menu.path },
 				{ title: () => (h('span', {}, [renderIcon(menu.meta.icon), menu.meta.title, itemArr])) }
 				)
 		}
@@ -149,10 +148,7 @@ export default  defineComponent({
 			// 	</CustomTag>
 			// </Menu.Item>
 			return h(Menu.Item,
-				{ key: menu.path, on: {
-					titleClick: (e: any) => {
-						titleClick(e)
-					} } },
+				{ key: menu.path },
 				h(CustomTag, { ...props, ...attrs }, [renderIcon(menu.meta.icon), menu.meta.title])
 				)
 			// return () => (<Menu.item {...{ key: menu.path }}></Menu.item>)
@@ -181,7 +177,7 @@ export default  defineComponent({
 		console.log('menuTree: ', menuTree)
 		return () => h(Menu,
 			{ ...dynamicProps },
-			[menuTree]
+			menuTree
 			)
 	},
   watch: {
