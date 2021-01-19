@@ -64,7 +64,7 @@ const user: Module<UserState, State> = {
 		}
   },
   getters: {
-    userInfoGetter (state: UserState) {
+    userName (state: UserState) {
       return state.name
 		},
 		roles (state: UserState) {

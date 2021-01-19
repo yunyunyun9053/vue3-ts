@@ -13,6 +13,7 @@
 						@click="() => (collapsed = !collapsed)"
 					/>
 					<menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+					<UserMenu></UserMenu>
 				</a-layout-header>
 				<a-layout-content
 					:style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
@@ -44,6 +45,7 @@ import { RouteRecordRaw } from 'vue-router'
 
 import Menu from './menu.vue'
 // import Menu from './menu'
+import UserMenu from './user-menu.vue'
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -54,6 +56,7 @@ export default defineComponent({
 		UploadOutlined,
 		MenuUnfoldOutlined,
 		MenuFoldOutlined,
+		UserMenu
 	},
 	data() {
 		return {
