@@ -1,5 +1,6 @@
 <template>
-	<a-sub-menu :key="menuInfo.path" v-bind="$attrs" @titleClick="$emit('titleClick', $event)">
+	<a-sub-menu :key="menuInfo.path" v-bind="$attrs">
+	<!-- <a-sub-menu :key="menuInfo.path" v-bind="$attrs" @titleClick="$emit('titleClick', $event)"> -->
 		<template #title>
 			<span>
 				<CustomIcon v-if="menuInfo.meta && menuInfo.meta.icon" :component="menuInfo.meta.icon" />
@@ -52,9 +53,9 @@ export default defineComponent({
 	created() {
 	},
 	methods: {
-		titleClick (e: any) {
-			console.log('titleClick', e)
-		}
+		// titleClick (e: any) {
+		// 	console.log('titleClick', e)
+		// }
   }
 })
 </script>

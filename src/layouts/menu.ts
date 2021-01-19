@@ -87,17 +87,17 @@ export default {
 			}
 			console.log('titleClick push', e, openKeys)
 		}
-		const onOpenChange = (openKeys: Array<string>) => {
+		const onOpenChange = (openChangeKeys: Array<string>) => {
       // 在水平模式下时执行，并且不再执行后续
       if (props.mode === 'horizontal') {
-        openKeys = openKeys
+        openKeys = openChangeKeys
         return
 			}
 			const rootSubKeys = unref(rootSubmenuKeys)
       // 非水平模式时
-      const latestOpenKey = openKeys.find(key => !openKeys.includes(key))
+      const latestOpenKey = openChangeKeys.find(key => !openKeys.includes(key))
       if (!(rootSubKeys.includes(latestOpenKey as string))) {
-        openKeys = openKeys
+        openKeys = openChangeKeys
       } else {
         openKeys = latestOpenKey ? [latestOpenKey] : []
       }

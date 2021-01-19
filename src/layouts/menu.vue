@@ -6,10 +6,12 @@
       :mode="mode"
       :theme="theme"
       :inline-collapsed="collapsed"
+			@openChange="onOpenChange"
     >
       <template v-for="item in menus" :key="item.path">
         <template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
-          <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" />
+          <!-- <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" /> -->
+          <sub-menu :menu-info="item" :key="item.path" />
         </template>
         <template v-else>
           <a-menu-item :key="item.path">
@@ -70,7 +72,7 @@ export default  defineComponent({
       type: String,
       default: 'inline'
 		},
-		mode: {
+		theme: {
       type: String,
       default: 'dark'
 		}
@@ -136,32 +138,34 @@ export default  defineComponent({
 			this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
 			console.log('this.openKeys ', this.openKeys, this.cachedOpenKeys)
 		},
-    onOpenChange (openKeys: Array<string>) {
+    onOpenChange (openChangeKeys: Array<string>) {
+			console.log('onOpenChange: ', openChangeKeys)
       // 在水平模式下时执行，并且不再执行后续
       if (this.mode === 'horizontal') {
-        this.openKeys = openKeys
+        this.openKeys = openChangeKeys
         return
 			}
 			const rootSubKeys = unref(this.rootSubmenuKeys)
+			console.log('rootSubKeys', rootSubKeys)
       // 非水平模式时
-      const latestOpenKey = openKeys.find(key => !openKeys.includes(key))
+      const latestOpenKey =  openChangeKeys.find(key => !this.openKeys.includes(key))
       if (!(rootSubKeys.includes(latestOpenKey as string))) {
-        openKeys = openKeys
+        this.openKeys = openChangeKeys
       } else {
-        openKeys = latestOpenKey ? [latestOpenKey] : []
+        this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     },
-		titleClick (e: any) {
-			console.log('titleClick ', e, this.openKeys)
-			const { key } = e
-			if (this.openKeys.includes(key)) {
-				const index = this.openKeys.findIndex(item => item === key)
-				this.openKeys.splice(index, 1)
-			} else {
-				this.openKeys.push(e.key)
-			}
-			console.log('titleClick push', e, this.openKeys)
-		}
+		// titleClick (e: any) {
+		// 	console.log('titleClick ', e, this.openKeys)
+		// 	const { key } = e
+		// 	if (this.openKeys.includes(key)) {
+		// 		const index = this.openKeys.findIndex(item => item === key)
+		// 		this.openKeys.splice(index, 1)
+		// 	} else {
+		// 		this.openKeys.push(e.key)
+		// 	}
+		// 	console.log('titleClick push', e, this.openKeys)
+		// }
   }
 })
 </script>
