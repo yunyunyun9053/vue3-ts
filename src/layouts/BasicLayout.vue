@@ -43,8 +43,8 @@ import { convertRoutes } from '@/utils/routeConvert'
 import { getCurrentInstance, computed, defineComponent, markRaw } from "vue"
 import { RouteRecordRaw } from 'vue-router'
 
-// import Menu from './menu.vue'
-import Menu from './menu'
+import Menu from './menu.vue'
+// import Menu from './menu'
 import UserMenu from './user-menu.vue'
 
 export default defineComponent({
