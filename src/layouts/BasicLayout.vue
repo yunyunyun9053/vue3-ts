@@ -3,7 +3,7 @@
 		<a-layout id="components-layout-demo-custom-trigger">
 			<a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible width="256px">
 				<div class="logo" />
-				<Menu :collapsed="collapsed" :menus="menus" :mode="mode"></Menu>
+				<Menu :collapsed="collapsed" :menus="menus" :mode="mode" :theme="'dark'"></Menu>
 			</a-layout-sider>
 			<a-layout>
 				<a-layout-header style="background: #fff; padding: 0">
@@ -43,8 +43,8 @@ import { convertRoutes } from '@/utils/routeConvert'
 import { getCurrentInstance, computed, defineComponent, markRaw } from "vue"
 import { RouteRecordRaw } from 'vue-router'
 
-import Menu from './menu.vue'
-// import Menu from './menu'
+// import Menu from './menu.vue'
+import Menu from './menu'
 import UserMenu from './user-menu.vue'
 
 export default defineComponent({

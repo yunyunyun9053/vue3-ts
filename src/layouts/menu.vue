@@ -3,8 +3,8 @@
     <a-menu
       :openKeys="openKeys"
       :selectedKeys="selectedKeys"
-      mode="inline"
-      theme="dark"
+      :mode="mode"
+      :theme="theme"
       :inline-collapsed="collapsed"
     >
       <template v-for="item in menus" :key="item.path">
@@ -69,6 +69,10 @@ export default  defineComponent({
 		mode: {
       type: String,
       default: 'inline'
+		},
+		mode: {
+      type: String,
+      default: 'dark'
 		}
   },
 	beforeEnter: (to: any, from: any, next: any) => {

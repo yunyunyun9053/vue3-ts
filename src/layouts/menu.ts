@@ -3,7 +3,7 @@ import { defineComponent, h, reactive, getCurrentInstance, computed, watch, toRa
 import { createRouter, createWebHistory, RouteRecordRaw  } from 'vue-router'
 import Menu from 'ant-design-vue/es/menu'
 
-export default  defineComponent({
+export default {
   name: 'menu',
   props: {
     collapsed: {
@@ -19,14 +19,20 @@ export default  defineComponent({
 		mode: {
       type: String,
       default: 'inline'
+		},
+		theme: {
+      type: String,
+      default: 'dark'
 		}
   },
 	data() {
     return {
     }
   },
-	setup(props, context) {
+	setup(props: any, context: any) {
 		const current = getCurrentInstance() // 获取当前组件实例
+		const $slots = (current as any).ctx.$slots
+		console.log('current: ', current)
 		let selectedKeys: Array<string> =  reactive([])
 		let openKeys: Array<string> =  reactive([])
 		let cachedOpenKeys: Array<string> =  reactive([])
@@ -97,6 +103,7 @@ export default  defineComponent({
       }
     }
     const onSelect = (selected: any) => {
+			console.log()
 			let { item, key, selectedKeys } = selected
       selectedKeys = selectedKeys || [ key ]
       context.emit('select', { item, key, selectedKeys })
@@ -122,9 +129,13 @@ export default  defineComponent({
 					itemArr.push(itemRender)
 				})
 			}
+			console.log('itemArr: ', itemArr)
 			return h(Menu.SubMenu,
 				{ key: menu.path },
-				{ title: () => (h('span', {}, [renderIcon(menu.meta.icon), menu.meta.title, itemArr])) }
+				// [$slots.default(h('span', {}, [renderIcon(menu.meta.icon), menu.meta.title]))]
+				{ title: () => (h('span', { ...context.attrs }, [renderIcon(menu.meta.icon),  h('span', {}, menu.meta.title)])),
+					default: () => (h('template', {}, itemArr))
+			 }
 				)
 		}
 		const renderMenuItem = (menu: any) => {
@@ -149,24 +160,31 @@ export default  defineComponent({
 			// </Menu.Item>
 			return h(Menu.Item,
 				{ key: menu.path },
-				h(CustomTag, { ...props, ...attrs }, [renderIcon(menu.meta.icon), menu.meta.title])
+				h(CustomTag, { ...props, ...attrs }, [renderIcon(menu.meta.icon), h('span', {}, menu.meta.title)])
 				)
 			// return () => (<Menu.item {...{ key: menu.path }}></Menu.item>)
 		}
 		const dynamicProps = {
-			props: {
-				mode: props.mode,
-				openKeys: openKeys,
-				selectedKeys: selectedKeys
+			mode: props.mode,
+			theme: props.theme,
+			openKeys: openKeys,
+			selectedKeys: selectedKeys,
+			onClick: (...args: any) => {
+				console.log('onClick')
+				onSelect(args)
 			},
-			on: {
-				openChange: (...args: Array<string>) => {
-					onOpenChange(args)
-				},
-				click: (...args: any) => {
-					onSelect(args)
-				}
+			onOpenChange: (...args: Array<string>) => {
+				console.log('onOpenChange')
+				onOpenChange(args)
 			}
+			// on: {
+			// 	openChange: (...args: Array<string>) => {
+			// 		onOpenChange(args)
+			// 	},
+			// 	click: (...args: any) => {
+			// 		onSelect(args)
+			// 	}
+			// }
 		}
 		const menuTree = props.menus.map((item: any) => {
 			if (item.hidden) {
@@ -174,7 +192,7 @@ export default  defineComponent({
 			}
 			return renderItem(item)
 		})
-		console.log('menuTree: ', menuTree)
+		console.log('Menu.SubMenu: ', menuTree)
 		return () => h(Menu,
 			{ ...dynamicProps },
 			menuTree
@@ -184,4 +202,4 @@ export default  defineComponent({
 	},
 	methods: {
 	}
-})
+}
