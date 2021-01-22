@@ -16,7 +16,8 @@
         <template v-else>
           <a-menu-item :key="item.path">
 						<router-link :to="item.path">
-							<CustomIcon :component="item.meta.icon" />
+							<!-- <CustomIcon :component="item.meta.icon" /> -->
+							<component :is='item.meta.icon'></component>
 							<!-- <AppstoreOutlined /> -->
 							<span>{{ item.meta.title }}</span>
 						</router-link>

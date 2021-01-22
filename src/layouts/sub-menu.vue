@@ -14,7 +14,8 @@
 			</template>
 			<template v-else>
 				<a-menu-item :key="item.path">
-					<CustomIcon v-if="item.meta && item.meta.icon" :component="item.meta.icon" />
+					<!-- <CustomIcon v-if="item.meta && item.meta.icon" :component="item.meta.icon" /> -->
+					<component :is='item.meta.icon'></component>
 					<!-- <PieChartOutlined /> -->
 					<router-link :to="item.path">{{ item.meta.title }}</router-link>
 				</a-menu-item>
