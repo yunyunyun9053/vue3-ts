@@ -20,9 +20,14 @@
 				>
 					<div id="nav">
 						<router-link to="/home">Home</router-link> |
-						<router-link to="/about">About</router-link>
+						<router-link to="/about/about1">About</router-link>
 					</div>
-					<router-view />
+					<!-- <router-view /> -->
+					<router-view v-slot="{ Component }">
+						<transition name="fade" mode="out-in">
+							<component :is="Component" />
+						</transition>
+					</router-view>
 				</a-layout-content>
 			</a-layout>
 		</a-layout>
@@ -31,16 +36,9 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons-vue'
 import { useStore } from '@/store'
 import { convertRoutes } from '@/utils/routeConvert'
-import { getCurrentInstance, computed, defineComponent, markRaw } from "vue"
+import { getCurrentInstance, computed, defineComponent, markRaw, shallowRef } from "vue"
 import { RouteRecordRaw } from 'vue-router'
 
 import Menu from './menu.vue'
@@ -51,11 +49,6 @@ export default defineComponent({
   name: 'BasicLayout',
   components: {
 		Menu,
-		UserOutlined,
-		VideoCameraOutlined,
-		UploadOutlined,
-		MenuUnfoldOutlined,
-		MenuFoldOutlined,
 		UserMenu
 	},
 	data() {
@@ -92,6 +85,15 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
 .layouts, .ant-layout-has-sider, .ant-layout-sider{
 	height: 100%;
 }

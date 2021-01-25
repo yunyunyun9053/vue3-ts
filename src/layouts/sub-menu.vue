@@ -3,8 +3,7 @@
 	<!-- <a-sub-menu :key="menuInfo.path" v-bind="$attrs" @titleClick="$emit('titleClick', $event)"> -->
 		<template #title>
 			<span>
-				<CustomIcon v-if="menuInfo.meta && menuInfo.meta.icon" :component="menuInfo.meta.icon" />
-				<!-- <PieChartOutlined /> -->
+				<component :is='menuInfo.meta.icon'></component>
 				<span>{{ menuInfo.meta.title }}</span>
 			</span>
 		</template>
@@ -14,9 +13,7 @@
 			</template>
 			<template v-else>
 				<a-menu-item :key="item.path">
-					<!-- <CustomIcon v-if="item.meta && item.meta.icon" :component="item.meta.icon" /> -->
 					<component :is='item.meta.icon'></component>
-					<!-- <PieChartOutlined /> -->
 					<router-link :to="item.path">{{ item.meta.title }}</router-link>
 				</a-menu-item>
 			</template>
@@ -27,18 +24,10 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { getCurrentInstance, computed, defineComponent } from "vue"
-import {
-  PieChartOutlined,
-  MailOutlined,
-} from '@ant-design/icons-vue'
-import CustomIcon from './custom-icon'
 
 export default defineComponent({
   name: 'SubMenu',
   components: {
-    PieChartOutlined,
-		MailOutlined,
-		CustomIcon
 	},
   props: {
     menuInfo: {

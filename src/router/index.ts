@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import BasicLayout from '@/layouts/BasicLayout.vue'
+import { markRaw } from "vue"
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -13,7 +14,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Index',
-    component: BasicLayout,
+		component: markRaw(BasicLayout),
+		// component: () => import(/* webpackChunkName: "BasicLayout" */ '@/layouts/BasicLayout.vue'),
     redirect: '/home',
     children: [
       {

@@ -16,7 +16,6 @@
         <template v-else>
           <a-menu-item :key="item.path">
 						<router-link :to="item.path">
-							<!-- <CustomIcon :component="item.meta.icon" /> -->
 							<component :is='item.meta.icon'></component>
 							<!-- <AppstoreOutlined /> -->
 							<span>{{ item.meta.title }}</span>
@@ -30,33 +29,15 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
-  MailOutlined,
-  DesktopOutlined,
-  InboxOutlined,
-  AppstoreOutlined,
-} from '@ant-design/icons-vue'
 
 import { getCurrentInstance, computed, defineComponent, unref } from "vue"
 // import { Menu } from 'ant-design-vue'
 import SubMenu from './sub-menu.vue'
-import CustomIcon from './custom-icon'
 
 export default  defineComponent({
   name: 'Menu',
   components: {
-		'sub-menu': SubMenu,
-		CustomIcon,
-    MenuFoldOutlined,
-		MenuUnfoldOutlined,
-		PieChartOutlined,
-		MailOutlined,
-		DesktopOutlined,
-		InboxOutlined,
-		AppstoreOutlined,
+		'sub-menu': SubMenu
 	},
   props: {
     collapsed: {
