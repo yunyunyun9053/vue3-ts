@@ -5,7 +5,8 @@ import {
 	Form,
 	Input,
 	Menu,
-	Layout
+	Layout,
+	Drawer
  } from 'ant-design-vue'
  
  app.use(Button)
@@ -13,6 +14,7 @@ import {
  app.use(Input)
  app.use(Menu)
  app.use(Layout)
+ app.use(Drawer)
 
  import {
   MenuFoldOutlined,

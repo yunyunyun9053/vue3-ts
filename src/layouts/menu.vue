@@ -7,6 +7,7 @@
       :theme="theme"
       :inline-collapsed="collapsed"
 			@openChange="onOpenChange"
+			@click="onClick"
     >
       <template v-for="item in menus" :key="item.path">
         <template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
@@ -137,17 +138,10 @@ export default  defineComponent({
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     },
-		// titleClick (e: any) {
-		// 	console.log('titleClick ', e, this.openKeys)
-		// 	const { key } = e
-		// 	if (this.openKeys.includes(key)) {
-		// 		const index = this.openKeys.findIndex(item => item === key)
-		// 		this.openKeys.splice(index, 1)
-		// 	} else {
-		// 		this.openKeys.push(e.key)
-		// 	}
-		// 	console.log('titleClick push', e, this.openKeys)
-		// }
+		onClick (e: any) {
+			console.log('select ', e)
+			this.$emit('onSelect', e)
+		}
   }
 })
 </script>

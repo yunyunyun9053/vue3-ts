@@ -1178,6 +1178,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/enquire.js@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/enquire.js/-/enquire.js-2.1.2.tgz#8cfa6196faabb9a7e09aebcb50c4b9a8538e229c"
+  integrity sha512-0Jmr8vj9xsPtPTEJbnXA4ChRtG+kggFojsUlvG6n1VnxcNSEy62RLY2M0eGECyvwun++uSOsxwsootzWD0ycyQ==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1369,6 +1374,13 @@
   integrity sha1-l/8w5hoKpodsJwtfU4c34tarjOs=
   dependencies:
     source-map "^0.6.1"
+
+"@types/vue-ls@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@types/vue-ls/-/vue-ls-3.2.2.tgz#2ccda4082d6a9eae250fcda1ce625a122dca1b14"
+  integrity sha512-Fu4SUrUdZF+E5FTS28hWzSNaaKLBRqe6rtXlIZ7RMsmRz3vqAtf8LO+eS/5v2jmZVhJpxaymlA17MvRpdfDRXQ==
+  dependencies:
+    vue "^2.0.0"
 
 "@types/webpack-dev-server@^3.11.0":
   version "3.11.1"
@@ -4346,6 +4358,11 @@ enhanced-resolve@^4.0.0, enhanced-resolve@^4.3.0:
     graceful-fs "^4.1.2"
     memory-fs "^0.5.0"
     tapable "^1.0.0"
+
+enquire.js@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/enquire.js/-/enquire.js-2.1.6.tgz#3e8780c9b8b835084c3f60e166dbc3c2a3c89814"
+  integrity sha1-PoeAybi4NQhMP2DhZtvDwqPImBQ=
 
 entities@^1.1.1:
   version "1.1.2"
@@ -8003,6 +8020,11 @@ open@^6.3.0:
   dependencies:
     is-wsl "^1.1.0"
 
+opencollective-postinstall@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
+  integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
+
 opener@^1.5.1:
   version "1.5.2"
   resolved "https://registry.npm.taobao.org/opener/download/opener-1.5.2.tgz#5d37e1f35077b9dcac4301372271afdeb2a13598"
@@ -10868,6 +10890,13 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-ls@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/vue-ls/-/vue-ls-3.2.2.tgz#c0178a027913e20e238bac8b9fa2ade2d69cce66"
+  integrity sha512-xros9Zheckv+8x9PerHvWe5SMYud0+ZlPAMrKWKNtDN/usMOKRoluj6kBZyQo6BxwpmiBL8/EjKMYjxmCNXOMg==
+  dependencies:
+    opencollective-postinstall "^2.0.2"
+
 vue-router@^4.0.0-0:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.2.tgz#5702bf8fa14535b80142fde226bf41a84917b1f4"
@@ -10892,6 +10921,11 @@ vue-types@^3.0.0:
   integrity sha512-UbvbzPu8DNzZRfMB1RDTFKBB6seMm80scMFdP+GkKaw00EugC3cjq9AtlS4y258vDkpAe9HfqbRO4cp63qVHXQ==
   dependencies:
     is-plain-object "3.0.1"
+
+vue@^2.0.0:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
+  integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
 vue@^3.0.0:
   version "3.0.4"
