@@ -1,6 +1,11 @@
 <template>
-	<a-layout-sider v-model:collapsed="collapsed" :trigger="null" :collapsible="collapsible" width="256px">
-		<div class="logo" />
+	<a-layout-sider
+		v-model:collapsed="collapsed"
+		:trigger="null"
+		:collapsible="collapsible"
+		width="256px"
+		:class="['sider', isDesktop ? null : 'shadow', theme, fixSiderbar ? 'ant-fixed-sidemenu' : null ]">
+		<Logo :title="'title'" />
 		<Menu :collapsed="collapsed" :menus="menus" :mode="mode" :theme="theme" @onSelect="onSelect"></Menu>
 	</a-layout-sider>
 </template>
@@ -8,10 +13,11 @@
 import { defineComponent } from "vue"
 
 import Menu from './menu.vue'
+import Logo from '@/components/Logo'
 
 export default defineComponent({
   name: 'SideMenu',
-  components: { Menu },
+  components: { Menu, Logo },
   props: {
 		collapsed: {
       type: Boolean,
@@ -34,6 +40,14 @@ export default defineComponent({
     collapsible: {
       type: Boolean,
       default: false
+    },
+    isDesktop: {
+      type: Boolean,
+      default: false
+    },
+    fixSiderbar: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -45,9 +59,4 @@ export default defineComponent({
 })
 </script>
 <style lang="less">
-.logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
-}
 </style>

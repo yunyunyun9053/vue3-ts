@@ -5,7 +5,7 @@
       :selectedKeys="selectedKeys"
       :mode="mode"
       :theme="theme"
-      :inline-collapsed="collapsed"
+      :inline-collapsed="mode === 'inline' ? collapsed : undefined"
 			@openChange="onOpenChange"
 			@click="onClick"
     >

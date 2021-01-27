@@ -43,7 +43,7 @@ const app: Module<AppState, State> = {
 	},
 	mutations: {
 		SET_SIDEBAR_TYPE: (state, type) => {
-      state.sidebar = type
+      state.sidebar = Boolean(type)
       localStorage.setItem(SIDEBAR_TYPE, type)
     },
     CLOSE_SIDEBAR: (state) => {
@@ -64,15 +64,15 @@ const app: Module<AppState, State> = {
     },
     TOGGLE_FIXED_HEADER: (state, fixed) => {
       localStorage.setItem(DEFAULT_FIXED_HEADER, fixed)
-      state.fixedHeader = fixed
+      state.fixedHeader = Boolean(fixed)
     },
     TOGGLE_FIXED_SIDERBAR: (state, fixed) => {
       localStorage.setItem(DEFAULT_FIXED_SIDEMENU, fixed)
-      state.fixSiderbar = fixed
+      state.fixSiderbar = Boolean(fixed)
     },
     TOGGLE_FIXED_HEADER_HIDDEN: (state, show) => {
       localStorage.setItem(DEFAULT_FIXED_HEADER_HIDDEN, show)
-      state.autoHideHeader = show
+      state.autoHideHeader = Boolean(show)
     },
     TOGGLE_CONTENT_WIDTH: (state, type) => {
       localStorage.setItem(DEFAULT_CONTENT_WIDTH_TYPE, type)
@@ -84,11 +84,11 @@ const app: Module<AppState, State> = {
     },
     TOGGLE_WEAK: (state, flag) => {
       localStorage.setItem(DEFAULT_COLOR_WEAK, flag)
-      state.weak = flag
+      state.weak = Boolean(flag)
     },
     TOGGLE_MULTI_TAB: (state, bool) => {
       localStorage.setItem(DEFAULT_MULTI_TAB, bool)
-      state.multiTab = bool
+      state.multiTab = Boolean(bool)
     }
   },
   actions: {

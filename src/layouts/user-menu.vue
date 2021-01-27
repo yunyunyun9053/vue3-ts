@@ -12,12 +12,9 @@ import { Options, Vue } from 'vue-class-component'
 import { getCurrentInstance, computed, defineComponent } from "vue"
 import { useStore } from '@/store'
 
-import CustomIcon from './custom-icon'
-
 export default defineComponent({
   name: 'UserMenu',
   components: {
-		CustomIcon
 	},
   props: {
   },

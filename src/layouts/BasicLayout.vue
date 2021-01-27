@@ -1,58 +1,63 @@
 <template>
-  <div class="layouts">
-		<a-layout id="components-layout-demo-custom-trigger">
-			<a-drawer
-				v-if="isMobile()"
-				placement="left"
-				:wrapClassName="`drawer-sider ${navTheme}`"
-				:closable="false"
-				:visible="collapsed"
-				@close="drawerClose"
-			>
-				<side-menu
-					mode="inline"
-					:menus="menus"
-					:theme="navTheme"
-					:collapsed="false"
-					:collapsible="true"
-					@menuSelect="menuSelect"
-				></side-menu>
-			</a-drawer>
-			<SideMenu
-				v-else-if="isSideMenu()"
-				:collapsed="collapsed"
+	<a-layout id="components-layout-demo-custom-trigger" :class="['layout', device]">
+		<a-drawer
+			v-if="isMobile()"
+			placement="left"
+			:wrapClassName="`drawer-sider ${navTheme}`"
+			:closable="false"
+			:visible="collapsed"
+			@close="drawerClose"
+		>
+			<side-menu
+				mode="inline"
 				:menus="menus"
-				:mode="layoutMode"
 				:theme="navTheme"
-			></SideMenu>
+				:collapsed="false"
+				:collapsible="true"
+				:isDesktop="isDesktop()"
+				:fixSiderbar="fixSiderbar"
+				@menuSelect="menuSelect"
+			></side-menu>
+		</a-drawer>
+		<side-menu
+			v-else-if="isSideMenu()"
+			:collapsed="collapsed"
+			:menus="menus"
+			:mode="'inline'"
+			:theme="navTheme"
+			:collapsible="true"
+			:isDesktop="isDesktop()"
+			:fixSiderbar="fixSiderbar"
+		></side-menu>
 
-			<a-layout>
-				<a-layout-header style="background: #fff; padding: 0">
-					<menu-unfold-outlined
-						v-if="collapsed"
-						class="trigger"
-						@click="toggle"
-					/>
-					<menu-fold-outlined v-else class="trigger" @click="toggle" />
-					<UserMenu></UserMenu>
-				</a-layout-header>
-				<a-layout-content
-					:style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
-				>
-					<div id="nav">
-						<router-link to="/home">Home</router-link> |
-						<router-link to="/about/about1">About</router-link>
-					</div>
-					<!-- <router-view /> -->
-					<router-view v-slot="{ Component }">
-						<transition name="fade" mode="out-in">
-							<component :is="Component" />
-						</transition>
-					</router-view>
-				</a-layout-content>
-			</a-layout>
+		<a-layout :class="[layoutMode, `content-width-${contentWidth}`]" :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }">
+
+			<global-header
+				:mode="layoutMode"
+				:menus="menus"
+				:theme="navTheme"
+				:collapsed="collapsed"
+				:device="device"
+				@toggle="toggle"
+			/>
+
+			<a-layout-content
+				:style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }"
+			>
+				<div id="nav">
+					<router-link to="/home">Home</router-link> |
+					<router-link to="/about/about1">About</router-link>
+				</div>
+				<ChangeLayout></ChangeLayout>
+				<!-- <router-view /> -->
+				<router-view v-slot="{ Component }">
+					<transition name="fade" mode="out-in">
+						<component :is="Component" />
+					</transition>
+				</router-view>
+			</a-layout-content>
 		</a-layout>
-  </div>
+	</a-layout>
 </template>
 
 <script lang="ts">
@@ -69,6 +74,8 @@ import Menu from './menu.vue'
 // import Menu from './menu'
 import UserMenu from './user-menu.vue'
 import SideMenu from './side-menu.vue'
+import GlobalHeader from './GlobalHeader.vue'
+import ChangeLayout from './change-layout.vue'
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -76,7 +83,9 @@ export default defineComponent({
   components: {
 		Menu,
 		UserMenu,
-		SideMenu
+		SideMenu,
+		GlobalHeader,
+		ChangeLayout
 	},
 	data() {
 		return {
@@ -90,11 +99,11 @@ export default defineComponent({
 		console.log('beforeEnter')
 	},
   setup (props, context) {
+		const collapsed = ref(false)
 		const current = getCurrentInstance() as any // 获取当前组件实例
 		const store = useStore()
 		const routes = convertRoutes(store.getters.addRouters.find((item: RouteRecordRaw) => item.path === '/'))
 		const menus = markRaw((routes && routes.children) || [])
-		const collapsed = ref(false)
 
 		const {
 			layoutMode,
@@ -111,14 +120,23 @@ export default defineComponent({
 			isTopMenu,
 			isSideMenu
 		} = mixin()
-
 		const {
 			device,
 			isMobile,
 			isDesktop,
 			isTablet
 		} = mixinDevice()
-
+		
+		// computed
+		const contentPaddingLeft = computed( () => {
+			if (!fixSidebar.value || isMobile()) {
+        return '0'
+			}
+      if (sidebarOpened.value) {
+        return '256px'
+      }
+      return '80px'
+		})
 		// watch
 		watch(sidebarOpened, value => {
 			collapsed.value = !value
@@ -134,12 +152,12 @@ export default defineComponent({
       collapsed.value = !collapsed.value
 			store.dispatch('setSidebar', !collapsed.value)
       triggerWindowResizeEvent()
-			console.log('menuSelect ', collapsed.value)
     }
     function drawerClose () {
       collapsed.value = false
     }
 		return {
+			collapsed,
 			menus,
 			layoutMode,
 			navTheme,
@@ -152,15 +170,18 @@ export default defineComponent({
 			autoHideHeader,
 			sidebarOpened,
 			multiTab,
+			device,
+			contentPaddingLeft,
+
+			// methods
+			isTopMenu,
 			isSideMenu,
-			collapsed,
+			isMobile,
+			isDesktop,
+			isTablet,
 			toggle,
 			menuSelect,
 			drawerClose,
-			device,
-			isMobile,
-			isDesktop,
-			isTablet
 		}
 	},
 	watch: {
@@ -197,11 +218,6 @@ export default defineComponent({
   color: #1890ff;
 }
 
-#components-layout-demo-custom-trigger .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
-}
 #nav {
 	padding: 30px;
 

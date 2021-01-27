@@ -1,12 +1,28 @@
 <template>
-  <router-view/>
+	<a-config-provider :locale="locale">
+  	<router-view/>
+	</a-config-provider>
 </template>
 <script lang="ts">
 import { useStore } from '@/store'
 import { deviceEnquire, DEVICE_TYPE } from '@/utils/device'
+import bootstrap from '@/core/bootstrap'
+
+import enUS from 'ant-design-vue/es/locale/en_US'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import moment from 'moment'
+moment.locale('zh-cn')
+import 'moment/dist/locale/zh-cn'
 
 import { defineComponent } from "vue"
 export default defineComponent({
+	data() {
+		return {
+			locale: zhCN,
+			enUS,
+			zhCN
+		}
+	},
 	setup () {
 		const store = useStore()
 		deviceEnquire((deviceType: string) => {
@@ -28,7 +44,10 @@ export default defineComponent({
     })
 		return {
 		}
-	}
+	},
+	created() {
+		bootstrap()
+	},
 })
 </script>
 <style lang="less">

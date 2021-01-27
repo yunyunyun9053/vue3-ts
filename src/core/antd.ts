@@ -6,7 +6,9 @@ import {
 	Input,
 	Menu,
 	Layout,
-	Drawer
+	Drawer,
+	ConfigProvider,
+	Tabs
  } from 'ant-design-vue'
  
  app.use(Button)
@@ -15,6 +17,9 @@ import {
  app.use(Menu)
  app.use(Layout)
  app.use(Drawer)
+ app.use(ConfigProvider)
+ app.use(Tabs)
+
 
  import {
   MenuFoldOutlined,

@@ -1,6 +1,6 @@
 // import Vue from 'vue'
 import { DEVICE_TYPE } from '@/utils/device'
-import { computed } from "vue"
+import { computed, reactive } from "vue"
 import { useStore } from '@/store'
 
 function mixin () {
@@ -48,6 +48,7 @@ function mixin () {
 	function isSideMenu () {
 		return !isTopMenu()
 	}
+
 	return {
 		layoutMode,
 		navTheme,
