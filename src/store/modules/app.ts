@@ -39,11 +39,11 @@ const app: Module<AppState, State> = {
     autoHideHeader: false,
     color: '',
     weak: false,
-    multiTab: true
+    multiTab: false
 	},
 	mutations: {
 		SET_SIDEBAR_TYPE: (state, type) => {
-      state.sidebar = Boolean(type)
+      state.sidebar = JSON.parse(type)
       localStorage.setItem(SIDEBAR_TYPE, type)
     },
     CLOSE_SIDEBAR: (state) => {
@@ -54,7 +54,6 @@ const app: Module<AppState, State> = {
       state.device = device
     },
     TOGGLE_THEME: (state, theme) => {
-      // setStore('_DEFAULT_THEME', theme)
       localStorage.setItem(DEFAULT_THEME, theme)
       state.theme = theme
     },
@@ -64,15 +63,15 @@ const app: Module<AppState, State> = {
     },
     TOGGLE_FIXED_HEADER: (state, fixed) => {
       localStorage.setItem(DEFAULT_FIXED_HEADER, fixed)
-      state.fixedHeader = Boolean(fixed)
+      state.fixedHeader = JSON.parse(fixed)
     },
     TOGGLE_FIXED_SIDERBAR: (state, fixed) => {
       localStorage.setItem(DEFAULT_FIXED_SIDEMENU, fixed)
-      state.fixSiderbar = Boolean(fixed)
+      state.fixSiderbar = JSON.parse(fixed)
     },
     TOGGLE_FIXED_HEADER_HIDDEN: (state, show) => {
       localStorage.setItem(DEFAULT_FIXED_HEADER_HIDDEN, show)
-      state.autoHideHeader = Boolean(show)
+      state.autoHideHeader = JSON.parse(show)
     },
     TOGGLE_CONTENT_WIDTH: (state, type) => {
       localStorage.setItem(DEFAULT_CONTENT_WIDTH_TYPE, type)
@@ -84,11 +83,11 @@ const app: Module<AppState, State> = {
     },
     TOGGLE_WEAK: (state, flag) => {
       localStorage.setItem(DEFAULT_COLOR_WEAK, flag)
-      state.weak = Boolean(flag)
+      state.weak = JSON.parse(flag)
     },
     TOGGLE_MULTI_TAB: (state, bool) => {
-      localStorage.setItem(DEFAULT_MULTI_TAB, bool)
-      state.multiTab = Boolean(bool)
+			localStorage.setItem(DEFAULT_MULTI_TAB, bool)
+      state.multiTab = JSON.parse(bool)
     }
   },
   actions: {

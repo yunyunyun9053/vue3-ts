@@ -41,20 +41,23 @@
 				@toggle="toggle"
 			/>
 
-			<a-layout-content
+			<!-- <a-layout-content
 				:style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }"
+			> -->
+			<a-layout-content
+				:style="{ height: '100%', margin: '24px 24px 0', paddingTop: '0' }"
 			>
-				<div id="nav">
-					<router-link to="/home">Home</router-link> |
-					<router-link to="/about/about1">About</router-link>
-				</div>
-				<ChangeLayout></ChangeLayout>
 				<!-- <router-view /> -->
 				<router-view v-slot="{ Component }">
 					<transition name="fade" mode="out-in">
 						<component :is="Component" />
 					</transition>
 				</router-view>
+				<div id="nav">
+					<router-link to="/home">Home</router-link> |
+					<router-link to="/about/about1">About</router-link>
+				</div>
+				<ChangeLayout></ChangeLayout>
 			</a-layout-content>
 		</a-layout>
 	</a-layout>

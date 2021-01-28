@@ -1,4 +1,7 @@
 // @import './index.less';
+@ant-pro-prefix             : ant-pro;
+@ant-global-sider-zindex    : 106;
+@ant-global-header-zindex   : 105;
 
 body {
 
@@ -346,7 +349,6 @@ body {
 }
 
 .topmenu {
-	color: #f44e00;
   .page-header-index-wide {
     max-width: 1200px;
     margin: 0 auto;
@@ -380,7 +382,7 @@ body {
 .sider {
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   position: relative;
-  z-index: 106;
+  z-index: @ant-global-sider-zindex;
   min-height: 100vh;
 
   .ant-layout-sider-children {

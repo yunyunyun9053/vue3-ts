@@ -8,7 +8,9 @@ import {
 	Layout,
 	Drawer,
 	ConfigProvider,
-	Tabs
+	Tabs,
+	Breadcrumb,
+	Avatar
  } from 'ant-design-vue'
  
  app.use(Button)
@@ -19,6 +21,8 @@ import {
  app.use(Drawer)
  app.use(ConfigProvider)
  app.use(Tabs)
+ app.use(Breadcrumb)
+ app.use(Avatar)
 
 
  import {
