@@ -34,6 +34,7 @@
 <script lang="ts">
 
 import { Options, Vue } from 'vue-class-component'
+import { mapActions } from 'vuex'
 import { getCurrentInstance, computed, defineComponent } from "vue"
 import { useStore } from '@/store'
 import { User } from '@/utils/user'
@@ -41,27 +42,24 @@ import { User } from '@/utils/user'
 export default defineComponent({
   name: 'Login',
   setup (props, context) {
-    const current = getCurrentInstance() // 获取当前组件实例
-    console.log(current)
-    const store = useStore()
-    console.log('store: ', store)
-    const handleFinish = () => {
-      const loginForm = (current as any).data.ruleForm
-      console.log('form: ', loginForm)
-      store.dispatch('Login', loginForm).then(() => {
-        // console.log('save Login')
-        (current as any).ctx.$router.push({
-          path: '/home'
-        })
-      })
-    }
-    const handleFinishFailed = (errors: any) => {
-      console.log(errors)
-    }
-    return {
-      handleFinish,
-      handleFinishFailed
-    }
+    // const current = getCurrentInstance() // 获取当前组件实例
+    // const store = useStore()
+    // const handleFinish = () => {
+    //   const loginForm = (current as any).data.ruleForm
+    //   store.dispatch('Login', loginForm).then(() => {
+    //     // console.log('save Login')
+    //     (current as any).ctx.$router.push({
+    //       path: '/home'
+    //     })
+    //   })
+    // }
+    // const handleFinishFailed = (errors: any) => {
+    //   console.log(errors)
+    // }
+    // return {
+    //   // handleFinish,
+    //   handleFinishFailed
+    // }
   },
   data() {
     return {
@@ -74,25 +72,22 @@ export default defineComponent({
 	},
 	created() {
 		this.$nextTick(() => {
-			// this.initCanvas()
 		})
 	},
   methods: {
-		initCanvas () {
-			const canvas = document.createElement('canvas') as any
-			const postctx = (document.getElementById('canvas') as any).getContext('2d')
-			const ctx = canvas.getContext('2d')
-			const ctxCanvas = ctx.canvas
-			console.log('ctxCanvas:　', canvas.height, canvas.width, ctxCanvas.width)
-			ctx.fillStyle = 'hsl(200deg, 100%, 2%)'
-			ctx.fillRect(0, 0, canvas.width, canvas.height)
-			ctx.save()
-			ctx.translate(canvas.width, canvas.height) // 重新开始绘制
-			ctx.beginPath() // 重新开始一条路径
-			ctx.restore() // 返回之前保存过的路径状态和属性
-
-			postctx.drawImage(ctxCanvas, 0, 0)
-		}
+		...mapActions(['Login']),
+		handleFinish () {
+      const loginForm = this.ruleForm
+      this.Login(loginForm).then(() => {
+        // console.log('save Login')
+        this.$router.push({
+          path: '/home'
+        })
+      })
+		},
+		handleFinishFailed (errors: any) {
+      console.log(errors)
+    }
   }
 })
 </script>

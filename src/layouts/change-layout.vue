@@ -20,14 +20,12 @@ import { getCurrentInstance, computed, defineComponent, ref } from "vue"
 export default defineComponent({
 	name: 'ChangeLayout',
 	props:{
-		msg: { type: String }
 	},
 	setup (props, context) {
-		const layoutMode = ref('sidemenu')
-
 		const store = useStore()
+		const layoutMode = ref(store.state.app.layout)
+
 		function handleLayout (mode: string) {
-			console.log('handleLayout ', mode)
 			store.dispatch('ToggleLayoutMode', mode)
 			store.dispatch('ToggleTheme', mode === 'topmenu' ? 'light' : 'dark')
 			

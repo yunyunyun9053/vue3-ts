@@ -1,11 +1,11 @@
 import './registerServiceWorker'
-import './components/global.less'
+import './styles/global.less'
 
 import router from './router'
 import store, { key } from './store'
 import "@/peimission"
 import { app } from './app'
-import "@/core/antd"
+import "@/core/antd/index"
 
  app
 .use(store, key)

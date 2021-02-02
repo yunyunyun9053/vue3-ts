@@ -62,6 +62,60 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
 						meta: { title: '首页2', hidden: false }
 					},
+					{
+						path: 'about22',
+						name: 'about22',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about23',
+						name: 'about23',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about24',
+						name: 'about24',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about25',
+						name: 'about25',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about26',
+						name: 'about26',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about27',
+						name: 'about27',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about28',
+						name: 'about28',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about29',
+						name: 'about29',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
+					{
+						path: 'about210',
+						name: 'about210',
+						component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+						meta: { title: '首页2', hidden: false }
+					},
 				]
       }
     ]

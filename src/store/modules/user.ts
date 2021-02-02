@@ -61,6 +61,10 @@ const user: Module<UserState, State> = {
 				localStorage.removeItem(ACCESS_TOKEN)
 				resolve()
 			})
+		},
+		changeName (context: any, name: string) {
+			console.log('changeName ', name)
+			context.commit("SET_NAME", name)
 		}
   },
   getters: {

@@ -13,6 +13,9 @@ import { Options, Vue } from 'vue-class-component'
 
 import { useStore } from '@/store'
 import { getCurrentInstance, computed, defineComponent } from "vue"
+
+import { loginR } from '@/api/user'
+
 // @Options({
 //   props: {
 //     msg: String
@@ -26,17 +29,17 @@ export default defineComponent({
 	setup (props, context) {
 		const store = useStore()
 		console.log('props ', props, 'context ', context)
-		// console.log(store.state.user.name, 'store')
-		// const current = getCurrentInstance() // 获取当前组件实例
-   	// console.log(current.ctx.$router.currentRoute.value)
-   	// console.log(current)
 		const name = computed( () => {
 			console.log(store, 'store')
-			// return store.state.user.name
-			return 'cora'
+			return store.state.user.name
 		})
 		const changeName = (name: string) => {
-			store.dispatch('GetUserInfo')
+
+			store.dispatch('changeName', name)
+
+			loginR({ name: 'kkk', password: 'aaa' }).then((res: any) => {
+				console.log('res ', res)
+			})
 		} 
 		return {
 			name,

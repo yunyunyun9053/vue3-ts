@@ -80,6 +80,7 @@ router.afterEach((to) => {
   // Finish progress bar
   NProgress.done();
 
-  // set page title
-  document.title = to.meta.title
+	// set page title
+	console.log('process.env.VUE_TITLE: ', process.env.VUE_APP_TITLE)
+  document.title = `${process.env.VUE_APP_TITLE} ${to.meta.title}`
 });
