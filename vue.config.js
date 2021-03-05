@@ -117,7 +117,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://106.75.11.161:8082/', // 代理服务器  devServer会自动对path的 /api 开头的api做代理转发
+        target: 'http://100.0.01.101:8080/', // 代理服务器  devServer会自动对path的 /api 开头的api做代理转发
         changeOrigin: true, // 是否允许跨域
         ws: true, // 是否代理websocket
         pathRewrite: { // 重写 url 的 path 部分。
