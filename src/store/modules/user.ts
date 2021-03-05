@@ -30,41 +30,45 @@ const user: Module<UserState, State> = {
   actions: {
     GetUserInfo (context: any) {
 			return new Promise((resolve, reject) => {
-				console.log('state: ', this.state.test)
 				getUserInfo().then((res: any) => {
 					const { roles, name, token } = res
-					// context.commit("SET_TOKEN", token)
-					context.commit("SET_NAME", name)
-					context.commit("SET_ROLES", roles)
+					context.commit('SET_TOKEN', token)
+					context.commit('SET_NAME', name)
+					context.commit('SET_ROLES', roles)
 					resolve(res)
+				}).catch((error) => {
+					reject(error)
 				})
 			})
 		},
 		Login (context: any, loginForm: User) {
+			context.commit('SET_TOKEN', '')
+			context.commit('SET_NAME', '')
+			context.commit('SET_ROLES', [])
 			return new Promise((resolve, reject) => {
 				login(loginForm).then((res: any) => {
 					console.log(res)
-					const { roles, name, token } = res
-					context.commit("SET_TOKEN", token)
+					const { token } = res
+					context.commit('SET_TOKEN', token)
 					localStorage.setItem(ACCESS_TOKEN, token)
-					context.commit("SET_NAME", name)
-					// context.commit("SET_ROLES", roles)
 					resolve()
+				}).catch((error) => {
+					reject(error)
 				})
 			})
 		},
-		Logout (context: any, loginForm: User) {
-			return new Promise((resolve, reject) => {
-				context.commit("SET_TOKEN", '')
-				context.commit("SET_NAME", '')
-				context.commit("SET_ROLES", [])
+		Logout (context: any) {
+			return new Promise((resolve) => {
+				context.commit('SET_TOKEN', '')
+				context.commit('SET_NAME', '')
+				context.commit('SET_ROLES', [])
 				localStorage.removeItem(ACCESS_TOKEN)
 				resolve()
 			})
 		},
 		changeName (context: any, name: string) {
 			console.log('changeName ', name)
-			context.commit("SET_NAME", name)
+			context.commit('SET_NAME', name)
 		}
   },
   getters: {

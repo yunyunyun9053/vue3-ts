@@ -1,23 +1,23 @@
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
-import { UserState } from './modules/user'
-import { PermissionState } from './modules/permission'
-import { AppState } from './modules/app'
+// import { UserState }, user from './modules/user'
+// import { PermissionState } from './modules/permission'
+// import { AppState } from './modules/app'
 
-import user from './modules/user'
-import permission from './modules/permission'
-import app from './modules/app'
+import user, { UserState } from './modules/user'
+import permission, { PermissionState } from './modules/permission'
+import app, { AppState } from './modules/app'
 
 export interface State {
-  test: string
+  test: string;
 }
 export interface AllState extends State {
-	user: UserState
-	permission: PermissionState,
-	app: AppState
+	user: UserState;
+	permission: PermissionState;
+	app: AppState;
 }
 
-export const key: InjectionKey<Store<State>> = Symbol()
+export const key: InjectionKey<Store<State>> = Symbol('key')
 
 export default createStore<State>({
   state: {

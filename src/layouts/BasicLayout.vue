@@ -69,8 +69,7 @@ import { convertRoutes } from '@/utils/routeConvert'
 import { mixin, mixinDevice } from '@/utils/mixin'
 import { triggerWindowResizeEvent } from '@/utils/util'
 
-import { Options, Vue } from 'vue-class-component'
-import { getCurrentInstance, computed, defineComponent, markRaw, shallowRef, watch, reactive, ref } from "vue"
+import { getCurrentInstance, computed, defineComponent, markRaw, watch, ref } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
 
 import Menu from './menu.vue'
@@ -82,7 +81,6 @@ import ChangeLayout from './change-layout.vue'
 
 export default defineComponent({
   name: 'BasicLayout',
-  // mixins: [mixin, mixinDevice],
   components: {
 		Menu,
 		UserMenu,
@@ -92,18 +90,11 @@ export default defineComponent({
 	},
 	data() {
 		return {
-			selectedKeys: ['1'],
-			// collapsed: true,
-			mode: 'inline'
 		}
 	},
-	beforeEnter: (to: any, from: any, next: any) => {
-		// ...
-		console.log('beforeEnter')
-	},
-  setup (props, context) {
+  setup () {
 		const collapsed = ref(false)
-		const current = getCurrentInstance() as any // 获取当前组件实例
+		// const current = getCurrentInstance() as any // 获取当前组件实例
 		const store = useStore()
 		const routes = convertRoutes(store.getters.addRouters.find((item: RouteRecordRaw) => item.path === '/'))
 		const menus = markRaw((routes && routes.children) || [])
@@ -129,13 +120,15 @@ export default defineComponent({
 			isDesktop,
 			isTablet
 		} = mixinDevice()
-		
+
+		collapsed.value = !sidebarOpened.value
 		// computed
-		const contentPaddingLeft = computed( () => {
+		const contentPaddingLeft = computed(() => {
 			if (!fixSidebar.value || isMobile()) {
         return '0'
 			}
-      if (sidebarOpened.value) {
+			console.log('sidebarOpened.value ', sidebarOpened.value)
+      if (sidebarOpened.value && fixSiderbar.value) {
         return '256px'
       }
       return '80px'
@@ -144,7 +137,6 @@ export default defineComponent({
 		watch(sidebarOpened, value => {
 			collapsed.value = !value
 		})
-		
 		// methods
 		function toggle () {
 			collapsed.value = !collapsed.value
@@ -184,7 +176,7 @@ export default defineComponent({
 			isTablet,
 			toggle,
 			menuSelect,
-			drawerClose,
+			drawerClose
 		}
 	},
 	watch: {

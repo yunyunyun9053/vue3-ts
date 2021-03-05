@@ -9,38 +9,30 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
 
 import { useStore } from '@/store'
-import { getCurrentInstance, computed, defineComponent } from "vue"
+import { getCurrentInstance, computed, defineComponent } from 'vue'
 
 import { loginR } from '@/api/user'
 
-// @Options({
-//   props: {
-//     msg: String
-//   }
-// })
 export default defineComponent({
 	name: 'HelloWorld',
-	props:{
+	props: {
 		msg: { type: String }
 	},
 	setup (props, context) {
 		const store = useStore()
 		console.log('props ', props, 'context ', context)
-		const name = computed( () => {
+		const name = computed(() => {
 			console.log(store, 'store')
 			return store.state.user.name
 		})
 		const changeName = (name: string) => {
-
 			store.dispatch('changeName', name)
-
 			loginR({ name: 'kkk', password: 'aaa' }).then((res: any) => {
 				console.log('res ', res)
 			})
-		} 
+		}
 		return {
 			name,
 			changeName

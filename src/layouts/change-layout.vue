@@ -12,33 +12,27 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-
 import { useStore } from '@/store'
-import { getCurrentInstance, computed, defineComponent, ref } from "vue"
+import { getCurrentInstance, computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
 	name: 'ChangeLayout',
-	props:{
-	},
 	setup (props, context) {
 		const store = useStore()
 		const layoutMode = ref(store.state.app.layout)
-
-		function handleLayout (mode: string) {
-			store.dispatch('ToggleLayoutMode', mode)
-			store.dispatch('ToggleTheme', mode === 'topmenu' ? 'light' : 'dark')
-			
-      // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
-      handleFixSiderbar(false)
-		}
-		function handleFixSiderbar (fixed: Boolean) {
+		function handleFixSiderbar (fixed: boolean) {
       if (layoutMode.value === 'topmenu') {
         store.dispatch('ToggleFixSiderbar', false)
         return
       }
       store.dispatch('ToggleFixSiderbar', fixed)
     }
+		function handleLayout (mode: string) {
+			store.dispatch('ToggleLayoutMode', mode)
+			store.dispatch('ToggleTheme', mode === 'topmenu' ? 'light' : 'dark')
+      // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
+      handleFixSiderbar(false)
+		}
 		return {
 			layoutMode,
 			handleFixSiderbar,

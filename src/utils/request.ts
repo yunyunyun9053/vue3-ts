@@ -1,11 +1,9 @@
-import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
 // import notification from 'ant-design-vue/es/notification'
-import { notification } from 'ant-design-vue'
+import { notification, message } from 'ant-design-vue'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 // import { message } from 'ant-design-vue/es'
-import { message } from 'ant-design-vue'
 
 // const isProd = process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true'
 
@@ -52,7 +50,7 @@ service.interceptors.request.use((config: any) => {
 	}
   const token = localStorage.getItem(ACCESS_TOKEN)
   if (token) {
-    config.headers['Authorization'] = token
+    config.headers.Authorization = token
     // config.headers['Authorization'] = 'Bearer ' + token
     // config.headers['Access-Token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
   }
@@ -81,8 +79,6 @@ service.interceptors.response.use((response) => {
     return Promise.reject(res)
   }
 }, err)
-
-
 export {
   service as axios
 }

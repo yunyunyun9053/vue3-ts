@@ -8,9 +8,9 @@ export interface PermissionState {
 	addRouters: Array<RouteRecordRaw>;
 }
 
-function hasPermission (roles: Array<number>, route: RouteRecordRaw) {
+function hasPermission (roles: Array<number>, route: any) {
   if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta?.permission.includes(role))
+    return roles.some((role: number | string) => route.meta.permission.includes(role))
   } else {
     return true
   }

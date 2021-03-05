@@ -14,10 +14,10 @@
 
 <script>
 // import { HomeOutlined, UserOutlined } from '@ant-design/icons-vue';
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-	 data () {
+   data () {
     return {
       name: '',
       breadList: []

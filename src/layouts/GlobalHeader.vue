@@ -38,7 +38,7 @@ import Logo from '@/components/Logo'
 import config from '@/config/defaultSettings'
 // import { mixin } from '@/utils/mixin'
 
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'GlobalHeader',

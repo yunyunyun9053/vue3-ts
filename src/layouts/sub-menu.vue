@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import { getCurrentInstance, computed, defineComponent } from "vue"
+
+import { getCurrentInstance, computed, defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'SubMenu',
@@ -38,10 +38,6 @@ export default defineComponent({
 	data() {
     return {}
   },
-  setup () {
-	},
-	created() {
-	},
 	methods: {
 		// titleClick (e: any) {
 		// 	console.log('titleClick', e)

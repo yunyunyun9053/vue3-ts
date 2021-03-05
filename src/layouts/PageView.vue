@@ -20,7 +20,7 @@
           <img v-if="typeof extraImage !== 'undefined'" :src="extraImage"/>
         </div>
       </slot> -->
-      <div slot="pageMenu">
+      <template #pageMenu>
         <div class="page-menu-search" v-if="search">
           <a-input-search
             style="width: 80%; max-width: 522px;"
@@ -35,7 +35,7 @@
             <a-tab-pane v-for="item in tabs.items" :tab="$t(item.title)" :key="item.key"></a-tab-pane>
           </a-tabs>
         </div>
-      </div>
+      </template>
     </page-header>
     <div class="content">
       <div class="page-header-index-wide">
@@ -57,7 +57,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 import PageHeader from './PageHeader'
 

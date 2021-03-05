@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import { getCurrentInstance, computed, defineComponent } from "vue"
+
+import { getCurrentInstance, defineComponent } from 'vue'
 import { useStore } from '@/store'
 
 export default defineComponent({
@@ -25,8 +25,8 @@ export default defineComponent({
 		const current = getCurrentInstance() // 获取当前组件实例
     const store = useStore()
     const handleLogout = () => {
-      const loginForm = (current as any).data.ruleForm
       store.dispatch('Logout').then(() => {
+				console.log('Logout store:', store)
 				setTimeout(() => {
 					window.location.reload()
 				}, 16)
@@ -37,8 +37,6 @@ export default defineComponent({
 			handleLogout,
 			userName
     }
-	},
-	created() {
 	},
 	methods: {
   }

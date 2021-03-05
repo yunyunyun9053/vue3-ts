@@ -15,17 +15,17 @@ import {
 } from '@/store/mutation-types'
 
 export interface AppState {
-	sidebar: Boolean;
+	sidebar: boolean;
 	device: string;
 	theme: string;
 	layout: string;
 	contentWidth: string;
-	fixedHeader: Boolean;
-	fixSiderbar: Boolean;
-	autoHideHeader: Boolean;
+	fixedHeader: boolean;
+	fixSiderbar: boolean;
+	autoHideHeader: boolean;
 	color: string;
-	weak: Boolean;
-	multiTab: Boolean;
+	weak: boolean;
+	multiTab: boolean;
 }
 const app: Module<AppState, State> = {
 	state: {
@@ -35,7 +35,7 @@ const app: Module<AppState, State> = {
     layout: 'inline',
     contentWidth: '',
     fixedHeader: false,
-    fixSiderbar: false,
+    fixSiderbar: true,
     autoHideHeader: false,
     color: '',
     weak: false,
@@ -66,7 +66,7 @@ const app: Module<AppState, State> = {
       state.fixedHeader = JSON.parse(fixed)
     },
     TOGGLE_FIXED_SIDERBAR: (state, fixed) => {
-      localStorage.setItem(DEFAULT_FIXED_SIDEMENU, fixed)
+			localStorage.setItem(DEFAULT_FIXED_SIDEMENU, fixed)
       state.fixSiderbar = JSON.parse(fixed)
     },
     TOGGLE_FIXED_HEADER_HIDDEN: (state, show) => {
@@ -135,4 +135,3 @@ const app: Module<AppState, State> = {
   }
 }
 export default app
-

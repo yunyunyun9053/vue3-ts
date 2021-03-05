@@ -27,15 +27,12 @@
     </a-menu>
   <!-- </div> -->
 </template>
-
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-
-import { getCurrentInstance, computed, defineComponent, unref } from "vue"
+import { getCurrentInstance, computed, defineComponent, unref } from 'vue'
 // import { Menu } from 'ant-design-vue'
 import SubMenu from './sub-menu.vue'
 
-export default  defineComponent({
+export default defineComponent({
   name: 'Menu',
   components: {
 		'sub-menu': SubMenu
@@ -60,9 +57,6 @@ export default  defineComponent({
       default: 'dark'
 		}
   },
-	beforeEnter: (to: any, from: any, next: any) => {
-		// ...
-	},
 	data() {
     return {
       // collapsed: false,
@@ -72,13 +66,11 @@ export default  defineComponent({
     }
 	},
 	computed: {
-		rootSubmenuKeys (): Array<string>{
+		rootSubmenuKeys (): Array<string> {
 			const keys: Array<string> = []
 			this.menus.forEach((item: any) => keys.push(item.path))
 			return keys
 		}
-	},
-  setup () {
 	},
   watch: {
     collapsed (val) {
@@ -102,7 +94,7 @@ export default  defineComponent({
 			const routes = this.$route.matched.concat()
       const { hidden, activeMenu } = this.$route.meta
       if (activeMenu) {
-        this.selectedKeys = [activeMenu]
+        this.selectedKeys = [activeMenu as string]
       } else {
         if (routes.length >= 3 && hidden) {
           routes.pop()
@@ -131,7 +123,7 @@ export default  defineComponent({
 			const rootSubKeys = unref(this.rootSubmenuKeys)
 			console.log('rootSubKeys', rootSubKeys)
       // 非水平模式时
-      const latestOpenKey =  openChangeKeys.find(key => !this.openKeys.includes(key))
+      const latestOpenKey = openChangeKeys.find(key => !this.openKeys.includes(key))
       if (!(rootSubKeys.includes(latestOpenKey as string))) {
         this.openKeys = openChangeKeys
       } else {

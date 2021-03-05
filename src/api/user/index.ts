@@ -8,7 +8,7 @@ import { User } from '@/utils/user'
  * @param parameter
  * @returns {*}
  */
-export function loginR (parameter: User) {
+export function loginR (parameter: User): Promise<object> {
   return axios({
     url: '/ams/ssoLogin',
     method: 'post',
@@ -16,8 +16,7 @@ export function loginR (parameter: User) {
   })
 }
 
-
-export function getUserInfo () {
+export function getUserInfo (): Promise<object> {
 	return new Promise((resolve, reject) => {
 		resolve({
 			name: 'userInfo cora',
@@ -26,7 +25,7 @@ export function getUserInfo () {
 		})
 	})
 }
-export function login (params: User) {
+export function login (params: User): Promise<object> {
 	return new Promise((resolve, reject) => {
 		if (params.name && params.password) {
 			resolve({
@@ -35,7 +34,7 @@ export function login (params: User) {
 				roles: [1, 2, 3]
 			})
 		} else {
-			reject()
+			// reject()
 		}
 	})
 }

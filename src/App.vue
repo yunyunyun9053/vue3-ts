@@ -1,7 +1,7 @@
 <template>
-	<a-config-provider :locale="locale">
-  	<router-view/>
-	</a-config-provider>
+  <a-config-provider :locale="locale">
+    <router-view/>
+  </a-config-provider>
 </template>
 <script lang="ts">
 import { useStore } from '@/store'
@@ -10,22 +10,23 @@ import bootstrap from '@/core/bootstrap'
 
 import enUS from 'ant-design-vue/es/locale/en_US'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import moment from 'moment'
-moment.locale('zh-cn')
-import 'moment/dist/locale/zh-cn'
+// import moment from 'moment'
+// import 'moment/dist/locale/zh-cn'
+import { defineComponent } from 'vue'
 
-import { defineComponent } from "vue"
+// moment.locale('zh-cn')
+
 export default defineComponent({
-	data() {
-		return {
-			locale: zhCN,
-			enUS,
-			zhCN
-		}
-	},
-	setup () {
-		const store = useStore()
-		deviceEnquire((deviceType: string) => {
+  data() {
+    return {
+      locale: zhCN,
+      enUS,
+      zhCN
+    }
+  },
+  setup () {
+    const store = useStore()
+    deviceEnquire((deviceType: string) => {
       switch (deviceType) {
         case DEVICE_TYPE.DESKTOP:
           store.commit('TOGGLE_DEVICE', 'desktop')
@@ -42,12 +43,12 @@ export default defineComponent({
           break
       }
     })
-		return {
-		}
-	},
-	created() {
-		bootstrap()
-	},
+    return {
+    }
+  },
+  created() {
+    bootstrap()
+  }
 })
 </script>
 <style lang="less">

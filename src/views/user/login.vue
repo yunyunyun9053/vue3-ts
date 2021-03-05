@@ -3,7 +3,7 @@
 		<div class="user-form">
 			<a-form
 				name="custom-validation"
-				ref="ruleForm"
+				ref="formRef"
 				:model="ruleForm"
 				:rules="rules"
 				v-bind="{ labelCol: { span: 6 }, wrapperCol: { span: 18 } }"
@@ -12,10 +12,10 @@
 				class="login-form"
 			>
 				<h1>vue3 +ts</h1>
-				<a-form-item required has-feedback label="Name" name="name">
+				<a-form-item has-feedback label="Name" name="name">
 					<a-input v-model:value="ruleForm.name" size="large" autocomplete="off" />
 				</a-form-item>
-				<a-form-item required has-feedback label="Password" name="password">
+				<a-form-item has-feedback label="Password" name="password">
 					<a-input v-model:value="ruleForm.password" type="password" size="large" autocomplete="off" />
 				</a-form-item>
 				<a-form-item :wrapper-col="{ span: 24 }">
@@ -25,69 +25,55 @@
 				</a-form-item>
 			</a-form>
 		</div>
-		<canvas id="canvas">
-			抱歉，您的浏览器不支持canvas元素
-		</canvas>
   </div>
 </template>
 
 <script lang="ts">
 
-import { Options, Vue } from 'vue-class-component'
-import { mapActions } from 'vuex'
-import { getCurrentInstance, computed, defineComponent } from "vue"
+import { useRouter } from 'vue-router'
+import { defineComponent, reactive, UnwrapRef, ref } from 'vue'
 import { useStore } from '@/store'
 import { User } from '@/utils/user'
 
 export default defineComponent({
   name: 'Login',
   setup (props, context) {
-    // const current = getCurrentInstance() // 获取当前组件实例
-    // const store = useStore()
-    // const handleFinish = () => {
-    //   const loginForm = (current as any).data.ruleForm
-    //   store.dispatch('Login', loginForm).then(() => {
-    //     // console.log('save Login')
-    //     (current as any).ctx.$router.push({
-    //       path: '/home'
-    //     })
-    //   })
-    // }
-    // const handleFinishFailed = (errors: any) => {
-    //   console.log(errors)
-    // }
-    // return {
-    //   // handleFinish,
-    //   handleFinishFailed
-    // }
+		console.log('props: ', props, 'context', context)
+		const formRef = ref()
+		const ruleForm: UnwrapRef<User> = reactive({ name: 'input name', password: '' })
+		const rules = {
+      name: [
+        { required: true, message: 'Please input name', trigger: 'blur' },
+        { min: 3, max: 25, message: 'Length should be 3 to 25', trigger: 'blur' }
+			],
+			password: [
+        { required: true, message: 'Please input password', trigger: 'blur' }
+			]
+		}
+		const store = useStore()
+		const router = useRouter()
+    const handleFinish = () => {
+      store.dispatch('Login', { ...ruleForm }).then(() => {
+        router.push({ path: '/home' })
+      })
+		}
+		const handleFinishFailed = (errors: any) => {
+			console.log('ruleForm: ', ruleForm)
+			console.log(errors)
+		}
+    return {
+			formRef,
+			ruleForm,
+			rules,
+			handleFinish,
+			handleFinishFailed
+    }
   },
   data() {
     return {
-      ruleForm: {
-        name: 'input name',
-        password: ''
-      } as User,
-      rules: {}
     }
-	},
-	created() {
-		this.$nextTick(() => {
-		})
 	},
   methods: {
-		...mapActions(['Login']),
-		handleFinish () {
-      const loginForm = this.ruleForm
-      this.Login(loginForm).then(() => {
-        // console.log('save Login')
-        this.$router.push({
-          path: '/home'
-        })
-      })
-		},
-		handleFinishFailed (errors: any) {
-      console.log(errors)
-    }
   }
 })
 </script>

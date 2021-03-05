@@ -1,4 +1,4 @@
-import { 
+import {
 	Button,
 	Form,
 	Input,
@@ -8,7 +8,10 @@ import {
 	ConfigProvider,
 	Tabs,
 	Breadcrumb,
-	Avatar
+	Avatar,
+	Table,
+	Pagination,
+	Card
  } from 'ant-design-vue'
 
  export const Components = [
@@ -21,5 +24,8 @@ import {
 	ConfigProvider,
 	Tabs,
 	Breadcrumb,
-	Avatar
+	Avatar,
+	Table,
+	Pagination,
+	Card
 ]

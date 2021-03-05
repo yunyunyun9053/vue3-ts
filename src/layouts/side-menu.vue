@@ -1,6 +1,6 @@
 <template>
 	<a-layout-sider
-		v-model:collapsed="collapsed"
+		:collapsed="collapsed"
 		:trigger="null"
 		:collapsible="collapsible"
 		width="256px"
@@ -10,7 +10,7 @@
 	</a-layout-sider>
 </template>
 <script>
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 import Menu from './menu.vue'
 import Logo from '@/components/Logo'
