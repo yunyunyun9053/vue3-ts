@@ -58,7 +58,6 @@ export default defineComponent({
       })
 		}
 		const handleFinishFailed = (errors: any) => {
-			console.log('ruleForm: ', ruleForm)
 			console.log(errors)
 		}
     return {

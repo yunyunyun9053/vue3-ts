@@ -13,11 +13,11 @@
 
 <script lang="ts">
 import { useStore } from '@/store'
-import { getCurrentInstance, computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
 	name: 'ChangeLayout',
-	setup (props, context) {
+	setup () {
 		const store = useStore()
 		const layoutMode = ref(store.state.app.layout)
 		function handleFixSiderbar (fixed: boolean) {

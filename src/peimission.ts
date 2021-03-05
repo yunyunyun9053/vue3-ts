@@ -3,6 +3,8 @@ import store from './store'
 
 import { RouteRecordRaw } from 'vue-router'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import globalI18n from '@/utils/i18n'
+import defaultSettings from '@/config/defaultSettings'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -67,5 +69,5 @@ router.afterEach((to) => {
   // Finish progress bar
   NProgress.done()
 	// set page title
-  document.title = `${process.env.VUE_APP_TITLE} ${to.meta.title}`
+  document.title = `${globalI18n.global.t(defaultSettings.title)} ${globalI18n.global.t(to.meta.title as string)}`
 })

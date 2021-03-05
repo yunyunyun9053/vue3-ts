@@ -12,6 +12,7 @@
 						@click="toggle"
 					/>
 					<menu-fold-outlined v-else class="trigger" @click="toggle" />
+					<span>{{ $t('title') }}</span>
 					<user-menu></user-menu>
         </div>
         <div v-else :class="['top-nav-header-index', theme]">

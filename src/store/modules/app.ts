@@ -1,6 +1,9 @@
 import { Module } from 'vuex'
 import { State } from '@/store'
 
+import dayjs from 'dayjs'
+import globalI18n from '@/utils/i18n'
+
 import {
   SIDEBAR_TYPE,
   DEFAULT_THEME,
@@ -15,6 +18,7 @@ import {
 } from '@/store/mutation-types'
 
 export interface AppState {
+	lang: string;
 	sidebar: boolean;
 	device: string;
 	theme: string;
@@ -29,6 +33,7 @@ export interface AppState {
 }
 const app: Module<AppState, State> = {
 	state: {
+		lang: 'zh-cn',
 		sidebar: true,
     device: 'desktop',
     theme: 'dark',
@@ -45,6 +50,11 @@ const app: Module<AppState, State> = {
 		SET_SIDEBAR_TYPE: (state, type) => {
       state.sidebar = JSON.parse(type)
       localStorage.setItem(SIDEBAR_TYPE, type)
+		},
+		SET_LANG: (state, lang) => {
+			state.lang = lang
+			globalI18n.global.locale = lang
+			dayjs.locale(lang)
     },
     CLOSE_SIDEBAR: (state) => {
       localStorage.setItem(SIDEBAR_TYPE, 'true')
@@ -91,6 +101,9 @@ const app: Module<AppState, State> = {
     }
   },
   actions: {
+		ChangeLang ({ commit }, lang) {
+      commit('SET_LANG', lang)
+    },
 		setSidebar ({ commit }, type) {
       commit('SET_SIDEBAR_TYPE', type)
     },
@@ -132,6 +145,9 @@ const app: Module<AppState, State> = {
     }
   },
   getters: {
+		lang (state: AppState) {
+			return state.lang
+		}
   }
 }
 export default app

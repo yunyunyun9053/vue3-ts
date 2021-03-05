@@ -2,24 +2,6 @@
   <div :style="!$route.meta.hiddenHeaderContent ? 'margin: 0px -24px 0px;' : null">
     <!-- pageHeader , route meta :true on hide -->
     <page-header v-if="!$route.meta.hiddenHeaderContent" :title="pageTitle" :logo="logo" :avatar="avatar">
-      <!-- <slot slot="action" name="action"></slot> -->
-      <!-- <slot slot="content" name="headerContent"></slot> -->
-      <!-- <div slot="content" v-if="!this.$slots.headerContent && description">
-        <p style="font-size: 14px;color: rgba(0,0,0,.65)">{{ description }}</p>
-        <div class="link">
-          <template v-for="(link, index) in linkList">
-            <a :key="index" @click="() => { link.callback && link.callback() }">
-              <a-icon :type="link.icon" />
-              <span>{{ $t(link.title) }}</span>
-            </a>
-          </template>
-        </div>
-      </div> -->
-      <!-- <slot slot="extra" name="extra">
-        <div class="extra-img">
-          <img v-if="typeof extraImage !== 'undefined'" :src="extraImage"/>
-        </div>
-      </slot> -->
       <template #pageMenu>
         <div class="page-menu-search" v-if="search">
           <a-input-search
@@ -40,9 +22,6 @@
     <div class="content">
       <div class="page-header-index-wide">
         <slot>
-          <!-- <keep-alive v-if="multiTab">
-            <router-view ref="content" />
-          </keep-alive> -->
 					<router-view v-if="multiTab" v-slot="{ Component }">
 						<keep-alive>
 							<component :is="Component" />

@@ -1,6 +1,9 @@
 <template>
 	<div class="user-menu">
 		<span>{{ userName }}</span>
+		<a-button type="link" @click="changeLang">
+			{{ $t('changeLang') }}
+		</a-button>
 		<a-button type="link" @click="handleLogout">
 			登出
 		</a-button>
@@ -9,7 +12,7 @@
 
 <script lang="ts">
 
-import { getCurrentInstance, defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
 
 export default defineComponent({
@@ -22,20 +25,28 @@ export default defineComponent({
     return {}
   },
   setup () {
-		const current = getCurrentInstance() // 获取当前组件实例
-    const store = useStore()
+		const store = useStore()
+    const userName = computed(() => {
+			return store.getters.userName
+		})
+		const lang = computed(() => {
+			return store.getters.lang
+		})
     const handleLogout = () => {
       store.dispatch('Logout').then(() => {
-				console.log('Logout store:', store)
 				setTimeout(() => {
 					window.location.reload()
 				}, 16)
 			})
-    }
-    const userName = store.getters.userName
+		}
+		const changeLang = () => {
+			store.dispatch('ChangeLang', lang.value === 'en' ? 'zh-cn' : 'en')
+		}
     return {
-			handleLogout,
-			userName
+			lang,
+			userName,
+			changeLang,
+			handleLogout
     }
 	},
 	methods: {

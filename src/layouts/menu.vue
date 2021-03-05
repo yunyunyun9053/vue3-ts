@@ -1,34 +1,32 @@
 <template>
-	<!-- <div class="menu"> -->
-    <a-menu
-      :openKeys="openKeys"
-      :selectedKeys="selectedKeys"
-      :mode="mode"
-      :theme="theme"
-      :inline-collapsed="mode === 'inline' ? collapsed : undefined"
-			@openChange="onOpenChange"
-			@click="onClick"
-    >
-      <template v-for="item in menus" :key="item.path">
-        <template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
-          <!-- <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" /> -->
-          <sub-menu :menu-info="item" :key="item.path" />
-        </template>
-        <template v-else>
-          <a-menu-item :key="item.path">
-						<router-link :to="item.path">
-							<component :is='item.meta.icon'></component>
-							<!-- <AppstoreOutlined /> -->
-							<span>{{ item.meta.title }}</span>
-						</router-link>
-          </a-menu-item>
-        </template>
-      </template>
-    </a-menu>
-  <!-- </div> -->
+	<a-menu
+		:openKeys="openKeys"
+		:selectedKeys="selectedKeys"
+		:mode="mode"
+		:theme="theme"
+		:inline-collapsed="mode === 'inline' ? collapsed : undefined"
+		@openChange="onOpenChange"
+		@click="onClick"
+	>
+		<template v-for="item in menus" :key="item.path">
+			<template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
+				<!-- <sub-menu :menu-info="item" :key="item.path" @titleClick="titleClick" /> -->
+				<sub-menu :menu-info="item" :key="item.path" />
+			</template>
+			<template v-else>
+				<a-menu-item :key="item.path">
+					<router-link :to="item.path">
+						<component :is='item.meta.icon'></component>
+						<!-- <AppstoreOutlined /> -->
+						<span>{{ item.meta.title }}</span>
+					</router-link>
+				</a-menu-item>
+			</template>
+		</template>
+	</a-menu>
 </template>
 <script lang="ts">
-import { getCurrentInstance, computed, defineComponent, unref } from 'vue'
+import { defineComponent, unref } from 'vue'
 // import { Menu } from 'ant-design-vue'
 import SubMenu from './sub-menu.vue'
 
@@ -86,7 +84,6 @@ export default defineComponent({
     }
   },
 	created() {
-		console.log('in menu ', this.$route)
 		this.updateMenu()
 	},
 	methods: {
@@ -111,10 +108,8 @@ export default defineComponent({
       }
 
 			this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
-			console.log('this.openKeys ', this.openKeys, this.cachedOpenKeys)
 		},
     onOpenChange (openChangeKeys: Array<string>) {
-			console.log('onOpenChange: ', openChangeKeys)
       // 在水平模式下时执行，并且不再执行后续
       if (this.mode === 'horizontal') {
         this.openKeys = openChangeKeys
@@ -131,8 +126,7 @@ export default defineComponent({
       }
     },
 		onClick (e: any) {
-			console.log('select ', e)
-			this.$emit('onSelect', e)
+			console.log('e', e)
 		}
   }
 })

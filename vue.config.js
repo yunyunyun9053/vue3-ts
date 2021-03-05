@@ -1,9 +1,9 @@
+import defaultSettings from '@/config/defaultSettings'
+
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-// const defaultSettings = require('./src/config/app.ts')
-
-const title = 'Vue3'
+const title = defaultSettings.title || 'Vue3'
 const meta = {}
 
 const isProd = process.env.NODE_ENV === 'production'

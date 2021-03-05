@@ -23,7 +23,7 @@
 
 <script lang="ts">
 
-import { getCurrentInstance, computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'SubMenu',
@@ -37,11 +37,6 @@ export default defineComponent({
   },
 	data() {
     return {}
-  },
-	methods: {
-		// titleClick (e: any) {
-		// 	console.log('titleClick', e)
-		// }
   }
 })
 </script>

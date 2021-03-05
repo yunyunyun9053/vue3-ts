@@ -5,10 +5,6 @@ import { useStore } from '@/store'
 
 function mixin () {
   const store = useStore()
-  console.log('store-app: ', store.state.app)
-  // const current = getCurrentInstance() // 获取当前组件实例
-  // console.log(current.ctx.$router.currentRoute.value)
-  // console.log(current)
   const navTheme = computed(() => {
     return store.state.app.theme
   })
@@ -40,10 +36,8 @@ function mixin () {
     return store.state.app.sidebar
   })
   const multiTab = computed(() => {
-    console.log('store.state.app.multiTab： ', store.state.app.multiTab)
     return store.state.app.multiTab
   })
-  console.log('multiTab ', multiTab)
   function isTopMenu () {
     return store.state.app.layout === 'topmenu'
   }

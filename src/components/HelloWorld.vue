@@ -11,7 +11,7 @@
 <script lang="ts">
 
 import { useStore } from '@/store'
-import { getCurrentInstance, computed, defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 
 import { loginR } from '@/api/user'
 

@@ -1,9 +1,7 @@
-import { createRouter, createWebHistory, RouteRecordRaw, useRouter } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 // import BasicLayout from '@/layouts/BasicLayout.vue'
 import { BasicLayout, PageView } from '../layouts'
 import { markRaw } from 'vue'
-
-console.log('Router:　', useRouter)
 
 export const routes: Array<RouteRecordRaw> = [
   {

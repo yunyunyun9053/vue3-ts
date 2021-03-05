@@ -69,7 +69,7 @@ import { convertRoutes } from '@/utils/routeConvert'
 import { mixin, mixinDevice } from '@/utils/mixin'
 import { triggerWindowResizeEvent } from '@/utils/util'
 
-import { getCurrentInstance, computed, defineComponent, markRaw, watch, ref } from 'vue'
+import { computed, defineComponent, markRaw, watch, ref } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
 
 import Menu from './menu.vue'
@@ -94,7 +94,6 @@ export default defineComponent({
 	},
   setup () {
 		const collapsed = ref(false)
-		// const current = getCurrentInstance() as any // 获取当前组件实例
 		const store = useStore()
 		const routes = convertRoutes(store.getters.addRouters.find((item: RouteRecordRaw) => item.path === '/'))
 		const menus = markRaw((routes && routes.children) || [])
@@ -180,9 +179,6 @@ export default defineComponent({
 		}
 	},
 	watch: {
-	},
-	created() {
-		console.log('in BasicLayout')
 	}
 })
 </script>
