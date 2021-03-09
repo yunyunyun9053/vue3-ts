@@ -126,7 +126,6 @@ export default defineComponent({
 			if (!fixSidebar.value || isMobile()) {
         return '0'
 			}
-			console.log('sidebarOpened.value ', sidebarOpened.value)
       if (sidebarOpened.value && fixSiderbar.value) {
         return '256px'
       }
@@ -143,6 +142,7 @@ export default defineComponent({
       triggerWindowResizeEvent()
     }
     function menuSelect () {
+			console.log('collapsed.value', collapsed.value)
       collapsed.value = !collapsed.value
 			store.dispatch('setSidebar', !collapsed.value)
       triggerWindowResizeEvent()

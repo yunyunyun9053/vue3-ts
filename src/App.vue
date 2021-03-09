@@ -24,25 +24,25 @@ export default defineComponent({
 		const lang = computed(() => {
 			return store.getters.lang
 		})
+		deviceEnquire((deviceType: string) => {
+			switch (deviceType) {
+				case DEVICE_TYPE.DESKTOP:
+					store.commit('TOGGLE_DEVICE', 'desktop')
+					store.dispatch('setSidebar', true)
+					break
+				case DEVICE_TYPE.TABLET:
+					store.commit('TOGGLE_DEVICE', 'tablet')
+					store.dispatch('setSidebar', false)
+					break
+				case DEVICE_TYPE.MOBILE:
+				default:
+					store.commit('TOGGLE_DEVICE', 'mobile')
+					store.dispatch('setSidebar', true)
+					break
+			}
+		})
     onMounted(() => {
 			dayjs.locale(lang.value)
-			deviceEnquire((deviceType: string) => {
-				switch (deviceType) {
-					case DEVICE_TYPE.DESKTOP:
-						store.commit('TOGGLE_DEVICE', 'desktop')
-						store.dispatch('setSidebar', true)
-						break
-					case DEVICE_TYPE.TABLET:
-						store.commit('TOGGLE_DEVICE', 'tablet')
-						store.dispatch('setSidebar', false)
-						break
-					case DEVICE_TYPE.MOBILE:
-					default:
-						store.commit('TOGGLE_DEVICE', 'mobile')
-						store.dispatch('setSidebar', true)
-						break
-				}
-			})
 			bootstrap()
 		})
     return {

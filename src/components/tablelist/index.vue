@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, ref, reactive, Ref } from 'vue'
+import { defineComponent, getCurrentInstance, ref, reactive, Ref, computed } from 'vue'
 
 interface ReturnData {
 	list: Array<any>;
@@ -114,13 +114,12 @@ export default defineComponent({
 		},
 		rowSelection: {
 			type: Object,
-      default: () => ({})
+      default: () => (undefined)
 		}
   },
 	setup(props) {
 		const currentInstance = getCurrentInstance() as any // 获取当前组件实例
 		const dataList: Ref<any[]> = ref([])
-		const columnsSlots: Ref<any[]> = ref([])
 		const isSearching = ref(false)
 		const loading = ref(false)
 		let usedParams: any = {}
@@ -132,15 +131,19 @@ export default defineComponent({
 			hasNext: false,
 			pageSize: props.pageSize
 		})
-		props.columns.forEach((item: any) => {
-			if (item.slots) {
-				for (const key in item.slots) {
-					if (Object.prototype.hasOwnProperty.call(item.slots, key)) {
-						const element = item.slots[key]
-						columnsSlots.value.push({ itemSlot: element })
+		const columnsSlots = computed(() => {
+			const slotArr: any[] = []
+			props.columns.forEach((item: any) => {
+				if (item.slots) {
+					for (const key in item.slots) {
+						if (Object.prototype.hasOwnProperty.call(item.slots, key)) {
+							const element = item.slots[key]
+							slotArr.push({ itemSlot: element })
+						}
 					}
 				}
-			}
+			})
+			return slotArr
 		})
 		// methods
 		const fetchList = () => {
