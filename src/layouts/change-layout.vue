@@ -20,14 +20,14 @@ export default defineComponent({
 	setup () {
 		const store = useStore()
 		const layoutMode = ref(store.state.app.layout)
-		function handleFixSiderbar (fixed: boolean) {
+		const handleFixSiderbar = (fixed: boolean) => {
       if (layoutMode.value === 'topmenu') {
         store.dispatch('ToggleFixSiderbar', false)
         return
       }
       store.dispatch('ToggleFixSiderbar', fixed)
     }
-		function handleLayout (mode: string) {
+		const handleLayout = (mode: string) => {
 			store.dispatch('ToggleLayoutMode', mode)
 			store.dispatch('ToggleTheme', mode === 'topmenu' ? 'light' : 'dark')
       // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭

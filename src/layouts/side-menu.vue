@@ -52,7 +52,6 @@ export default defineComponent({
   },
   methods: {
     onSelect (obj) {
-			console.log('onSelect ', obj)
       this.$emit('menuSelect', obj)
     }
   }

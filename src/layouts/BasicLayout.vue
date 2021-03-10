@@ -136,18 +136,18 @@ export default defineComponent({
 			collapsed.value = !value
 		})
 		// methods
-		function toggle () {
+		const toggle = () => {
 			collapsed.value = !collapsed.value
 			store.dispatch('setSidebar', !collapsed.value)
       triggerWindowResizeEvent()
     }
-    function menuSelect () {
+    const menuSelect = () => {
 			console.log('collapsed.value', collapsed.value)
       collapsed.value = !collapsed.value
 			store.dispatch('setSidebar', !collapsed.value)
       triggerWindowResizeEvent()
     }
-    function drawerClose () {
+    const drawerClose = () => {
       collapsed.value = false
     }
 		return {

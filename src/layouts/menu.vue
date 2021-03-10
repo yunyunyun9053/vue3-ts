@@ -6,7 +6,6 @@
 		:theme="theme"
 		:inline-collapsed="mode === 'inline' ? collapsed : undefined"
 		@openChange="onOpenChange"
-		@click="onClick"
 	>
 		<template v-for="item in menus" :key="item.path">
 			<template v-if="item.children && item.children.length > 0 && !item.meta.hideChildrenInMenu">
@@ -116,7 +115,6 @@ export default defineComponent({
         return
 			}
 			const rootSubKeys = unref(this.rootSubmenuKeys)
-			console.log('rootSubKeys', rootSubKeys)
       // 非水平模式时
       const latestOpenKey = openChangeKeys.find(key => !this.openKeys.includes(key))
       if (!(rootSubKeys.includes(latestOpenKey as string))) {
@@ -124,10 +122,7 @@ export default defineComponent({
       } else {
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
-    },
-		onClick (e: any) {
-			console.log('e', e)
-		}
+    }
   }
 })
 </script>
