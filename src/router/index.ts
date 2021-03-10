@@ -65,21 +65,21 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 				]
       },
       {
-        path: 'about2',
-        name: 'About2',
+        path: 'component',
+        name: 'component',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
 				// component: () => import(/* webpackChunkName: 'about' */ '@/views/About.vue'),
 				component: markRaw(PageView),
-				meta: { title: 'About2', icon: 'AppstoreOutlined', permission: [1], hideChildrenInMenu: false },
-				redirect: '/about2/about21',
+				meta: { title: '组件', icon: 'AppstoreOutlined', permission: [1], hideChildrenInMenu: false },
+				redirect: '/component/editor',
 				children: [
 					{
-						path: 'about21',
-						name: 'about21',
-						component: () => import(/* webpackChunkName: 'about' */ '@/views/About.vue'),
-						meta: { title: '首页2', hidden: false }
+						path: 'editor',
+						name: 'editor',
+						component: () => import(/* webpackChunkName: 'about' */ '@/views/components/editor.vue'),
+						meta: { title: '编辑器', hidden: false }
 					},
 					{
 						path: 'about22',

@@ -32,6 +32,7 @@
 
 import { useRouter } from 'vue-router'
 import { defineComponent, reactive, UnwrapRef, ref } from 'vue'
+import { mapActions } from 'vuex'
 import { useStore } from '@/store'
 import { User } from '@/utils/user'
 
@@ -67,7 +68,8 @@ export default defineComponent({
 			handleFinish,
 			handleFinishFailed
     }
-  },
+	},
+	...mapActions(['Login']),
   data() {
     return {
     }
